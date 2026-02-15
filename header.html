@@ -7,8 +7,16 @@
     display: none !important;
   }
 
-  /* Body - push content below the fixed header */
+  /* Body - no top padding (first section handles clearance) */
   body {
+    padding-top: 0 !important;
+  }
+
+  /* Push first section content below the fixed header,
+     while its background still extends behind the pill */
+  .page-section:first-child,
+  #sections > :first-child,
+  #page > article > :first-child {
     padding-top: 120px !important;
   }
 
@@ -435,7 +443,9 @@
 
   /* ========== RESPONSIVE ========== */
   @media (max-width: 768px) {
-    body {
+    .page-section:first-child,
+    #sections > :first-child,
+    #page > article > :first-child {
       padding-top: 84px !important;
     }
 
@@ -491,7 +501,9 @@
   }
 
   @media (max-width: 480px) {
-    body {
+    .page-section:first-child,
+    #sections > :first-child,
+    #page > article > :first-child {
       padding-top: 66px !important;
     }
 
