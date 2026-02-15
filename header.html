@@ -7,9 +7,9 @@
     display: none !important;
   }
 
-  /* Body - remove padding so content starts at top */
+  /* Body - push content below the fixed header */
   body {
-    padding-top: 0 !important;
+    padding-top: 120px !important;
   }
 
   /* ========== HEADER CONTAINER ========== */
@@ -435,6 +435,10 @@
 
   /* ========== RESPONSIVE ========== */
   @media (max-width: 768px) {
+    body {
+      padding-top: 84px !important;
+    }
+
     .custom-header {
       top: 16px;
       left: 16px;
@@ -487,6 +491,10 @@
   }
 
   @media (max-width: 480px) {
+    body {
+      padding-top: 66px !important;
+    }
+
     .custom-header {
       top: 12px;
       left: 12px;
