@@ -14,12 +14,12 @@
     left: 0;
     right: 0;
     width: 100%;
-    height: 80px;
+    height: 90px;
     background: transparent;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 40px;
+    padding: 0 45px;
     z-index: 9999;
     box-sizing: border-box;
   }
@@ -35,7 +35,7 @@
   .custom-menu-button {
     background: white;
     border: none;
-    border-radius: 50px;
+    border-radius: 15px;
     padding: 18px 35px;
     font-size: 24px;
     font-weight: 600;
@@ -136,6 +136,11 @@
     visibility: visible;
   }
   
+  /* Lower z-index when services is open so submenu appears on top */
+  body.services-open .custom-menu-tray {
+    z-index: 9997;
+  }
+  
   /* Individual Menu Cards */
   .menu-card {
     background: white;
@@ -177,16 +182,6 @@
     color: #333;
     font-size: 18px;
     font-weight: 500;
-    text-decoration: none;
-  }
-  
-  .services-header:hover {
-    color: #5db8be;
-  }
-  
-  .services-link {
-    color: inherit;
-    text-decoration: none;
   }
   
   .dropdown-arrow {
@@ -196,7 +191,6 @@
     border-right: 6px solid transparent;
     border-top: 6px solid #333;
     transition: transform 0.3s ease;
-    cursor: pointer;
   }
   
   body.services-open .dropdown-arrow {
@@ -206,11 +200,11 @@
   /* Services Submenu Tray */
   .services-submenu-tray {
     position: fixed;
-    top: 200px;
+    top: 170px;
     left: 40px;
     display: flex;
     gap: 15px;
-    z-index: 9997;
+    z-index: 9999;
     flex-wrap: wrap;
     max-width: calc(100vw - 80px);
     opacity: 0;
@@ -227,10 +221,50 @@
   
   .services-submenu-tray .menu-card {
     padding: 15px 25px;
+    background: white;
+    pointer-events: auto;
   }
   
   .services-submenu-tray a {
     font-size: 16px;
+    color: #333;
+  }
+  
+  .services-submenu-tray .menu-card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  }
+  
+  .services-submenu-tray a:hover {
+    color: #5db8be;
+  }
+  
+  /* Grey out main menu when services is open */
+  body.services-open .custom-menu-tray .menu-card {
+    background: #e0e0e0;
+    pointer-events: none;
+  }
+  
+  body.services-open .custom-menu-tray .menu-card a,
+  body.services-open .custom-menu-tray .services-header {
+    color: #999;
+  }
+  
+  body.services-open .custom-menu-tray .dropdown-arrow {
+    border-top-color: #999;
+  }
+  
+  /* Keep services card interactive and white when open */
+  body.services-open .custom-menu-tray .menu-card-services {
+    background: white;
+    pointer-events: auto;
+  }
+  
+  body.services-open .custom-menu-tray .menu-card-services .services-header {
+    color: #333;
+  }
+  
+  body.services-open .custom-menu-tray .menu-card-services .dropdown-arrow {
+    border-top-color: #333;
   }
   
   /* Body - remove padding so content starts at top */
@@ -317,7 +351,7 @@
     }
     
     .services-submenu-tray {
-      top: 180px;
+      top: 220px;
       left: 20px;
       max-width: calc(100vw - 40px);
     }
@@ -384,7 +418,7 @@
     }
     
     .services-submenu-tray {
-      top: 165px;
+      top: 180px;
       left: 15px;
       max-width: calc(100vw - 30px);
     }
@@ -421,6 +455,13 @@
     <a href="/about">About</a>
   </div>
   
+  <div class="menu-card menu-card-services" id="servicesCard">
+    <div class="services-header">
+      <span>Services</span>
+      <div class="dropdown-arrow"></div>
+    </div>
+  </div>
+  
   <div class="menu-card">
     <a href="/team">Team</a>
   </div>
@@ -428,35 +469,28 @@
   <div class="menu-card">
     <a href="/contact">Contact</a>
   </div>
-  
-  <div class="menu-card menu-card-services" id="servicesCard">
-    <a href="/services" class="services-header services-link">
-      <span>Services</span>
-      <div class="dropdown-arrow" id="servicesArrow"></div>
-    </a>
-  </div>
 </div>
 
 <!-- Services Submenu Tray -->
 <div class="services-submenu-tray" id="servicesSubmenu">
   <div class="menu-card">
-    <a href="/general">General</a>
+    <a href="/services/general">General</a>
   </div>
   
   <div class="menu-card">
-    <a href="/teeth-whitening">Teeth Whitening</a>
+    <a href="/services/teeth-whitening">Teeth Whitening</a>
   </div>
   
   <div class="menu-card">
-    <a href="/veneers">Veneers</a>
+    <a href="/services/veneers">Veneers</a>
   </div>
   
   <div class="menu-card">
-    <a href="/composite-bonding">Composite Bonding</a>
+    <a href="/services/composite-bonding">Composite Bonding</a>
   </div>
   
   <div class="menu-card">
-    <a href="/hygiene">Hygiene</a>
+    <a href="/services/hygiene">Hygiene</a>
   </div>
 </div>
 
@@ -486,11 +520,8 @@
       body.classList.remove('services-open');
     });
     
-    // Services dropdown toggle - only toggle on arrow click
-    const servicesArrow = document.getElementById('servicesArrow');
-    servicesArrow.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
+    // Services dropdown toggle
+    servicesCard.addEventListener('click', function(e) {
       body.classList.toggle('services-open');
     });
     
