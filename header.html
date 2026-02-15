@@ -578,15 +578,19 @@
   <div class="menu-card">
     <a href="/services/general">General</a>
   </div>
+
   <div class="menu-card">
     <a href="/services/teeth-whitening">Teeth Whitening</a>
   </div>
+
   <div class="menu-card">
     <a href="/services/veneers">Veneers</a>
   </div>
+
   <div class="menu-card">
     <a href="/services/composite-bonding">Composite Bonding</a>
   </div>
+
   <div class="menu-card">
     <a href="/services/hygiene">Hygiene</a>
   </div>
@@ -597,18 +601,22 @@
   <div class="menu-card">
     <a href="/about">About</a>
   </div>
+
   <div class="menu-card menu-card-services" id="mobileServicesCard">
     <div class="services-header">
       <span>Services</span>
       <div class="dropdown-arrow"></div>
     </div>
   </div>
+
   <div class="menu-card">
     <a href="/fees">Fees</a>
   </div>
+
   <div class="menu-card">
     <a href="/team">Team</a>
   </div>
+
   <div class="menu-card">
     <a href="/contact">Contact</a>
   </div>
@@ -619,15 +627,19 @@
   <div class="menu-card">
     <a href="/services/general">General</a>
   </div>
+
   <div class="menu-card">
     <a href="/services/teeth-whitening">Teeth Whitening</a>
   </div>
+
   <div class="menu-card">
     <a href="/services/veneers">Veneers</a>
   </div>
+
   <div class="menu-card">
     <a href="/services/composite-bonding">Composite Bonding</a>
   </div>
+
   <div class="menu-card">
     <a href="/services/hygiene">Hygiene</a>
   </div>
@@ -656,7 +668,9 @@
     const mobileServicesCard = document.getElementById('mobileServicesCard');
     const mobileServicesSubmenu = document.getElementById('mobileServicesSubmenu');
 
-    mobileMenuToggle.addEventListener('click', function() {
+    mobileMenuToggle.addEventListener('click', function(e) {
+      // Prevent the logo link inside the button from navigating to homepage
+      e.preventDefault();
       body.classList.toggle('menu-open');
       // Close services dropdown when closing menu
       if (!body.classList.contains('menu-open')) {
