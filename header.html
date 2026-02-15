@@ -668,9 +668,15 @@
     const mobileServicesCard = document.getElementById('mobileServicesCard');
     const mobileServicesSubmenu = document.getElementById('mobileServicesSubmenu');
 
+    // Prevent the logo link inside the mobile button from navigating to homepage
+    var mobileLogoLink = mobileMenuToggle.querySelector('a');
+    if (mobileLogoLink) {
+      mobileLogoLink.addEventListener('click', function(e) {
+        e.preventDefault();
+      });
+    }
+
     mobileMenuToggle.addEventListener('click', function(e) {
-      // Prevent the logo link inside the button from navigating to homepage
-      e.preventDefault();
       body.classList.toggle('menu-open');
       // Close services dropdown when closing menu
       if (!body.classList.contains('menu-open')) {
