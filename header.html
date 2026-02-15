@@ -128,39 +128,45 @@
   /* ========== DESKTOP SERVICES DROPDOWN ========== */
   .services-dropdown {
     position: absolute;
-    left: 0;
-    top: 100%;
-    width: max-content;
-    max-width: 700px;
+    left: 28px;
+    right: 28px;
+    top: calc(100% + 12px);
     z-index: 10;
-    overflow: hidden;
-    height: 0;
+    background: white;
+    border-radius: 20px;
+    padding: 28px 32px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.3s ease, height 0.3s ease;
+    transform: translateY(-8px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
   }
 
   body.services-open .services-dropdown {
-    height: auto;
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
+    transform: translateY(0);
   }
 
   .services-dropdown-inner {
-    padding-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 40px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 12px 48px;
+    width: max-content;
   }
 
   .services-dropdown-inner a {
     color: #333;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     transition: color 0.2s ease;
     white-space: nowrap;
     padding: 4px 0;
+    display: block;
   }
 
   .services-dropdown-inner a:hover {
@@ -524,22 +530,10 @@
     <nav class="desktop-nav" aria-label="Main navigation">
       <a href="/about">About</a>
 
-      <div style="position: relative;">
-        <button class="services-trigger" id="servicesToggle" aria-expanded="false" aria-label="Open Services submenu">
-          <span>Services</span>
-          <div class="dropdown-arrow"></div>
-        </button>
-
-        <div class="services-dropdown" id="servicesDropdown">
-          <div class="services-dropdown-inner">
-            <a href="/services/general">General</a>
-            <a href="/services/teeth-whitening">Teeth Whitening</a>
-            <a href="/services/veneers">Veneers</a>
-            <a href="/services/composite-bonding">Composite Bonding</a>
-            <a href="/services/hygiene">Hygiene</a>
-          </div>
-        </div>
-      </div>
+      <button class="services-trigger" id="servicesToggle" aria-expanded="false" aria-label="Open Services submenu">
+        <span>Services</span>
+        <div class="dropdown-arrow"></div>
+      </button>
 
       <a href="/fees">Fees</a>
       <a href="/team">Team</a>
@@ -570,6 +564,17 @@
           <span></span>
         </div>
       </button>
+    </div>
+
+    <!-- Services Dropdown Panel (desktop) -->
+    <div class="services-dropdown" id="servicesDropdown">
+      <div class="services-dropdown-inner">
+        <a href="/services/general">General</a>
+        <a href="/services/teeth-whitening">Teeth Whitening</a>
+        <a href="/services/veneers">Veneers</a>
+        <a href="/services/composite-bonding">Composite Bonding</a>
+        <a href="/services/hygiene">Hygiene</a>
+      </div>
     </div>
   </div>
 </header>
