@@ -151,15 +151,10 @@
     padding: 16px 4px 6px;
   }
 
-  .services-tray-divider {
-    height: 1px;
-    background: #e8e8e8;
-    margin-bottom: 16px;
-  }
-
   .services-tray-inner {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 6px 28px;
   }
 
@@ -177,8 +172,8 @@
     color: #0fbcb0;
   }
 
-  /* Pill shape change when expanded */
-  body.services-open .header-inner {
+  /* Pill shape change when expanded (desktop only) */
+  body.services-open:not(.menu-open) .header-inner {
     border-radius: 24px;
   }
 
@@ -251,7 +246,7 @@
 
   /* Hamburger to X animation - clean symmetrical cross */
   body.menu-open .hamburger-lines span {
-    background: white;
+    background: #333;
   }
 
   body.menu-open .hamburger-lines span:nth-child(1) {
@@ -606,7 +601,6 @@
 
     <!-- Services Expansion Tray (expands the pill) -->
     <div class="services-tray" id="servicesTray">
-      <div class="services-tray-divider"></div>
       <div class="services-tray-inner">
         <a href="/services/general">General</a>
         <a href="/services/teeth-whitening">Teeth Whitening</a>
