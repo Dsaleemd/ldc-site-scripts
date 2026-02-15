@@ -6,7 +6,7 @@
   #header {
     display: none !important;
   }
-  
+
   /* Custom Header Container */
   .custom-header {
     position: fixed;
@@ -22,84 +22,88 @@
     padding: 0 45px;
     z-index: 9999;
     box-sizing: border-box;
+    gap: 20px;
   }
-  
-  /* Center Menu Container */
-  .custom-header-center {
-    flex: 0;
-    display: flex;
-    justify-content: flex-start;
-  }
-  
-  /* Menu Button */
-  .custom-menu-button {
-    background: white;
-    border: none;
-    border-radius: 15px;
-    padding: 18px 35px;
-    font-size: 24px;
-    font-weight: 600;
-    color: #000;
+
+  /* Logo */
+  .header-logo {
+    height: 44px;
+    width: auto;
     cursor: pointer;
+  }
+
+  /* Desktop Navigation Container - Full Width White Pill with Logo Inside */
+  .desktop-nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    transition: all 0.3s ease;
+    background: white;
+    border-radius: 50px;
+    padding: 18px 35px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    min-width: 280px;
+    flex: 1;
   }
-  
-  .custom-menu-button:hover {
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+
+  .desktop-nav-container .header-logo {
+    margin-right: 15px;
   }
-  
-  /* Logo inside menu button */
-  .menu-logo {
-    height: 44px;
-    width: auto;
-  }
-  
-  /* Burger Icon */
-  .burger-icon {
-    width: 30px;
-    height: 20px;
-    position: relative;
+
+  /* Desktop Navigation Links */
+  .desktop-nav {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    gap: 35px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .desktop-nav a,
+  .desktop-nav .services-trigger {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  .desktop-nav a:hover,
+  .desktop-nav .services-trigger:hover {
+    color: #5db8be;
+  }
+
+  .services-trigger {
+    display: flex;
+    align-items: center;
     gap: 8px;
   }
-  
-  .burger-icon span {
-    display: block;
-    height: 3px;
-    background: #000;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    position: relative;
+
+  .dropdown-arrow {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #333;
+    transition: transform 0.3s ease;
   }
-  
-  /* X Icon when menu is open */
-  .menu-open .burger-icon {
-    gap: 0;
+
+  .services-trigger:hover .dropdown-arrow {
+    border-top-color: #5db8be;
   }
-  
-  .menu-open .burger-icon span:first-child {
-    transform: rotate(45deg);
-    top: 1.5px;
+
+  body.services-open .dropdown-arrow {
+    transform: rotate(180deg);
   }
-  
-  .menu-open .burger-icon span:last-child {
-    transform: rotate(-45deg);
-    top: -1.5px;
-  }
-  
-  /* Book Online Button */
+
+  /* Book Now Button */
   .custom-book-button {
-    background: rgba(180, 180, 180, 0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: #0fbcb0;
     border: none;
     border-radius: 50px;
     padding: 18px 40px;
@@ -110,14 +114,121 @@
     cursor: pointer;
     transition: all 0.3s ease;
     display: inline-block;
+    box-shadow: none;
+    white-space: nowrap;
   }
-  
+
   .custom-book-button:hover {
-    background: rgba(180, 180, 180, 0.8);
+    background: #0da399;
   }
-  
-  /* Menu Tray - Horizontal Cards */
-  .custom-menu-tray {
+
+  /* Book button outside container on mobile */
+  .custom-book-button.mobile-book {
+    display: none;
+  }
+
+  /* Mobile Menu Button - Hidden on Desktop */
+  .mobile-menu-button {
+    display: none;
+    background: white;
+    border: none;
+    border-radius: 50px;
+    padding: 18px 35px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #000;
+    cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    flex: 1;
+  }
+
+  .burger-icon {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .burger-icon span {
+    display: block;
+    height: 3px;
+    background: #000;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .menu-open .burger-icon {
+    gap: 0;
+  }
+
+  .menu-open .burger-icon span:first-child {
+    transform: rotate(45deg);
+    top: 1.5px;
+  }
+
+  .menu-open .burger-icon span:last-child {
+    transform: rotate(-45deg);
+    top: -1.5px;
+  }
+
+  /* Services Submenu Tray - Desktop */
+  .services-submenu-tray {
+    position: fixed;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 9998;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+
+  body.services-open .services-submenu-tray {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .services-submenu-tray .menu-card {
+    background: white;
+    border-radius: 20px;
+    padding: 15px 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .services-submenu-tray .menu-card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  }
+
+  .services-submenu-tray a {
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .services-submenu-tray a:hover {
+    color: #5db8be;
+  }
+
+  /* Mobile Menu Tray - Hidden on Desktop */
+  .mobile-menu-tray {
+    display: none;
     position: fixed;
     top: 100px;
     left: 40px;
@@ -125,153 +236,110 @@
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 9998;
-    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 15px;
     max-width: calc(100vw - 80px);
-    flex-wrap: wrap;
   }
-  
-  .menu-open .custom-menu-tray {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  /* Lower z-index when services is open so submenu appears on top */
-  body.services-open .custom-menu-tray {
-    z-index: 9997;
-  }
-  
-  /* Individual Menu Cards */
-  .menu-card {
+
+  .mobile-menu-tray .menu-card {
     background: white;
     border-radius: 20px;
     padding: 20px 30px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.15);
     transition: all 0.3s ease;
-    white-space: nowrap;
   }
-  
-  .menu-card:hover {
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-  }
-  
-  /* Menu Card Links */
-  .menu-card a {
+
+  .mobile-menu-tray .menu-card a,
+  .mobile-menu-tray .services-header {
     color: #333;
     text-decoration: none;
     font-size: 18px;
     font-weight: 500;
     display: block;
-    transition: color 0.2s ease;
   }
-  
-  .menu-card a:hover {
+
+  .mobile-menu-tray .menu-card a:hover {
     color: #5db8be;
   }
-  
-  /* Services Card with Dropdown */
-  .menu-card-services {
-    cursor: pointer;
-    position: relative;
-  }
-  
+
   .services-header {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #333;
-    font-size: 18px;
-    font-weight: 500;
+    cursor: pointer;
   }
-  
-  .dropdown-arrow {
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid #333;
-    transition: transform 0.3s ease;
-  }
-  
-  body.services-open .dropdown-arrow {
-    transform: rotate(180deg);
-  }
-  
-  /* Services Submenu Tray */
-  .services-submenu-tray {
+
+  /* Mobile Services Submenu */
+  .mobile-services-submenu {
+    display: none;
     position: fixed;
     top: 170px;
     left: 40px;
-    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 15px;
     z-index: 9999;
-    flex-wrap: wrap;
     max-width: calc(100vw - 80px);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     transition: all 0.3s ease;
   }
-  
-  body.services-open .services-submenu-tray {
+
+  body.services-open .mobile-services-submenu {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
   }
-  
-  .services-submenu-tray .menu-card {
-    padding: 15px 25px;
+
+  .mobile-services-submenu .menu-card {
     background: white;
-    pointer-events: auto;
+    border-radius: 20px;
+    padding: 15px 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
   }
-  
-  .services-submenu-tray a {
+
+  .mobile-services-submenu a {
     font-size: 16px;
     color: #333;
+    text-decoration: none;
   }
-  
-  .services-submenu-tray .menu-card:hover {
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-  }
-  
-  .services-submenu-tray a:hover {
-    color: #5db8be;
-  }
-  
-  /* Grey out main menu when services is open */
-  body.services-open .custom-menu-tray .menu-card {
+
+  /* Grey out main menu when services is open on mobile */
+  body.services-open .mobile-menu-tray .menu-card {
     background: #e0e0e0;
     pointer-events: none;
   }
-  
-  body.services-open .custom-menu-tray .menu-card a,
-  body.services-open .custom-menu-tray .services-header {
+
+  body.services-open .mobile-menu-tray .menu-card a,
+  body.services-open .mobile-menu-tray .services-header {
     color: #999;
   }
-  
-  body.services-open .custom-menu-tray .dropdown-arrow {
+
+  body.services-open .mobile-menu-tray .dropdown-arrow {
     border-top-color: #999;
   }
-  
-  /* Keep services card interactive and white when open */
-  body.services-open .custom-menu-tray .menu-card-services {
+
+  body.services-open .mobile-menu-tray .menu-card-services {
     background: white;
     pointer-events: auto;
   }
-  
-  body.services-open .custom-menu-tray .menu-card-services .services-header {
+
+  body.services-open .mobile-menu-tray .menu-card-services .services-header {
     color: #333;
   }
-  
-  body.services-open .custom-menu-tray .menu-card-services .dropdown-arrow {
+
+  body.services-open .mobile-menu-tray .menu-card-services .dropdown-arrow {
     border-top-color: #333;
   }
-  
+
   /* Body - remove padding so content starts at top */
   body {
     padding-top: 0 !important;
   }
-  
+
   /* Overlay */
   .menu-overlay {
     position: fixed;
@@ -285,210 +353,293 @@
     transition: all 0.3s ease;
     z-index: 9997;
   }
-  
+
   .menu-open .menu-overlay {
     opacity: 1;
     visibility: visible;
   }
-  
+
+  /* Desktop Services Overlay */
+  body.services-open .menu-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+
   /* Mobile Responsive */
   @media (max-width: 768px) {
     .custom-header {
       height: 70px;
       padding: 0 20px;
-    }
-    
-    .custom-menu-button {
-      padding: 14px 25px;
-      font-size: 18px;
       gap: 15px;
-      min-width: 220px;
     }
-    
-    .menu-logo {
+
+    .header-logo {
       height: 35px;
     }
-    
+
+    /* Hide desktop nav container on mobile */
+    .desktop-nav-container {
+      display: none;
+    }
+
+    /* Hide desktop book button, show mobile one */
+    .desktop-nav-container .custom-book-button {
+      display: none;
+    }
+
+    .custom-book-button.mobile-book {
+      display: inline-block;
+      padding: 14px 25px;
+      font-size: 16px;
+      flex: 0 0 auto;
+      box-shadow: 0 2px 10px rgba(15, 188, 176, 0.3);
+    }
+
+    .custom-book-button.mobile-book:hover {
+      box-shadow: 0 4px 15px rgba(15, 188, 176, 0.4);
+    }
+
+    /* Show mobile menu button */
+    .mobile-menu-button {
+      display: flex;
+      padding: 14px 20px;
+      font-size: 18px;
+      gap: 12px;
+      flex: 1;
+      justify-content: space-between;
+    }
+
     .burger-icon {
       width: 28px;
       height: 18px;
     }
-    
+
     .burger-icon span {
       height: 2.5px;
     }
-    
+
     .menu-open .burger-icon span:first-child {
       top: 1.25px;
     }
-    
+
     .menu-open .burger-icon span:last-child {
       top: -1.25px;
     }
-    
-    .custom-book-button {
-      padding: 14px 28px;
-      font-size: 16px;
-    }
-    
-    .custom-menu-tray {
+
+    /* Show mobile menu tray */
+    .mobile-menu-tray {
+      display: flex;
       top: 90px;
       left: 20px;
       gap: 10px;
       max-width: calc(100vw - 40px);
     }
-    
-    .menu-card {
-      padding: 15px 20px;
-      text-align: center;
+
+    .menu-open .mobile-menu-tray {
+      opacity: 1;
+      visibility: visible;
     }
-    
-    .menu-card a,
-    .services-header {
+
+    .mobile-menu-tray .menu-card {
+      padding: 15px 20px;
+    }
+
+    .mobile-menu-tray .menu-card a,
+    .mobile-menu-tray .services-header {
       font-size: 16px;
-      text-align: center;
+    }
+
+    /* Show mobile services submenu */
+    .mobile-services-submenu {
+      display: flex;
+      top: 150px;
+      left: 20px;
+      right: 20px;
+      max-width: calc(100vw - 40px);
       justify-content: center;
     }
-    
+
+    /* Hide desktop services submenu on mobile */
     .services-submenu-tray {
-      top: 220px;
-      left: 20px;
-      max-width: calc(100vw - 40px);
-    }
-    
-    .services-submenu-tray .menu-card a {
-      font-size: 14px;
+      display: none;
     }
   }
-  
+
   @media (max-width: 480px) {
     .custom-header {
       height: 60px;
       padding: 0 15px;
+      gap: 10px;
     }
-    
-    .custom-menu-button {
-      padding: 12px 20px;
+
+    .header-logo {
+      height: 28px;
+    }
+
+    .mobile-menu-button {
+      padding: 12px 18px;
       font-size: 16px;
-      gap: 12px;
-      min-width: 180px;
+      gap: 10px;
+      min-width: unset;
     }
-    
-    .menu-logo {
-      height: 31px;
-    }
-    
+
     .burger-icon {
       width: 24px;
       height: 16px;
     }
-    
+
     .burger-icon span {
       height: 2px;
     }
-    
+
     .menu-open .burger-icon span:first-child {
       top: 1px;
     }
-    
+
     .menu-open .burger-icon span:last-child {
       top: -1px;
     }
-    
-    .custom-book-button {
+
+    .custom-book-button.mobile-book {
       padding: 12px 20px;
       font-size: 14px;
     }
-    
-    .custom-menu-tray {
+
+    .mobile-menu-tray {
       top: 80px;
       left: 15px;
       gap: 8px;
       max-width: calc(100vw - 30px);
     }
-    
-    .menu-card {
+
+    .mobile-menu-tray .menu-card {
       padding: 12px 18px;
-      text-align: center;
     }
-    
-    .menu-card a,
-    .services-header {
+
+    .mobile-menu-tray .menu-card a,
+    .mobile-menu-tray .services-header {
       font-size: 14px;
     }
-    
-    .services-submenu-tray {
-      top: 180px;
+
+    .mobile-services-submenu {
+      top: 130px;
       left: 15px;
+      right: 15px;
       max-width: calc(100vw - 30px);
     }
-    
-    .services-submenu-tray .menu-card a {
+
+    .mobile-services-submenu .menu-card a {
       font-size: 13px;
     }
   }
 </style>
 
 <div class="custom-header">
-  <!-- Center Menu with Logo -->
-  <div class="custom-header-center">
-    <button class="custom-menu-button" id="menuToggle">
-      <img src="https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/8c5f5d2f-957b-403a-9403-9bec057add03/Web+elements+%281920+x+500+px%29.png?format=1500w" alt="London Dental Centre" class="menu-logo">
-      <div class="burger-icon">
-        <span></span>
-        <span></span>
-      </div>
-    </button>
+  <!-- Desktop Navigation Container - Full Width White Pill with Logo Inside -->
+  <div class="desktop-nav-container">
+    <a href="/">
+      <img src="https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/8c5f5d2f-957b-403a-9403-9bec057add03/Web+elements+%281920+x+500+px%29.png?format=1500w" alt="London Dental Centre" class="header-logo">
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="/about">About</a>
+
+      <button class="services-trigger" id="servicesToggle">
+        <span>Services</span>
+        <div class="dropdown-arrow"></div>
+      </button>
+
+      <a href="/fees">Fees</a>
+      <a href="/team">Team</a>
+      <a href="/contact">Contact</a>
+    </nav>
+
+    <!-- Book Now Button inside desktop nav -->
+    <a href="YOUR_BOOKING_LINK_HERE" class="custom-book-button">Book now</a>
   </div>
-  
-  <!-- Book Online Button -->
-  <a href="YOUR_BOOKING_LINK_HERE" class="custom-book-button">Book Online</a>
+
+  <!-- Mobile Menu Button with Logo Inside -->
+  <button class="mobile-menu-button" id="mobileMenuToggle">
+    <a href="/" style="display: flex; align-items: center; height: 100%;">
+      <img src="https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/8c5f5d2f-957b-403a-9403-9bec057add03/Web+elements+%281920+x+500+px%29.png?format=1500w" alt="London Dental Centre" class="header-logo">
+    </a>
+    <div class="burger-icon">
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+
+  <!-- Book Now Button for mobile (outside container) -->
+  <a href="YOUR_BOOKING_LINK_HERE" class="custom-book-button mobile-book">Book now</a>
 </div>
 
-<!-- Menu Tray - Horizontal Cards -->
-<div class="custom-menu-tray" id="menuTray">
+<!-- Desktop Services Submenu Tray -->
+<div class="services-submenu-tray" id="servicesSubmenu">
   <div class="menu-card">
-    <a href="/">Home</a>
+    <a href="/services/general">General</a>
   </div>
-  
+
+  <div class="menu-card">
+    <a href="/services/teeth-whitening">Teeth Whitening</a>
+  </div>
+
+  <div class="menu-card">
+    <a href="/services/veneers">Veneers</a>
+  </div>
+
+  <div class="menu-card">
+    <a href="/services/composite-bonding">Composite Bonding</a>
+  </div>
+
+  <div class="menu-card">
+    <a href="/services/hygiene">Hygiene</a>
+  </div>
+</div>
+
+<!-- Mobile Menu Tray -->
+<div class="mobile-menu-tray" id="mobileMenuTray">
   <div class="menu-card">
     <a href="/about">About</a>
   </div>
-  
-  <div class="menu-card menu-card-services" id="servicesCard">
+
+  <div class="menu-card menu-card-services" id="mobileServicesCard">
     <div class="services-header">
       <span>Services</span>
       <div class="dropdown-arrow"></div>
     </div>
   </div>
-  
+
+  <div class="menu-card">
+    <a href="/fees">Fees</a>
+  </div>
+
   <div class="menu-card">
     <a href="/team">Team</a>
   </div>
-  
+
   <div class="menu-card">
     <a href="/contact">Contact</a>
   </div>
 </div>
 
-<!-- Services Submenu Tray -->
-<div class="services-submenu-tray" id="servicesSubmenu">
+<!-- Mobile Services Submenu -->
+<div class="mobile-services-submenu" id="mobileServicesSubmenu">
   <div class="menu-card">
     <a href="/services/general">General</a>
   </div>
-  
+
   <div class="menu-card">
     <a href="/services/teeth-whitening">Teeth Whitening</a>
   </div>
-  
+
   <div class="menu-card">
     <a href="/services/veneers">Veneers</a>
   </div>
-  
+
   <div class="menu-card">
     <a href="/services/composite-bonding">Composite Bonding</a>
   </div>
-  
+
   <div class="menu-card">
     <a href="/services/hygiene">Hygiene</a>
   </div>
@@ -499,50 +650,77 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('menuToggle');
-    const menuTray = document.getElementById('menuTray');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const servicesCard = document.getElementById('servicesCard');
-    const servicesSubmenu = document.getElementById('servicesSubmenu');
     const body = document.body;
-    
-    function toggleMenu() {
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    // Desktop Services Toggle
+    const servicesToggle = document.getElementById('servicesToggle');
+    const servicesSubmenu = document.getElementById('servicesSubmenu');
+
+    servicesToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      body.classList.toggle('services-open');
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenuTray = document.getElementById('mobileMenuTray');
+    const mobileServicesCard = document.getElementById('mobileServicesCard');
+    const mobileServicesSubmenu = document.getElementById('mobileServicesSubmenu');
+
+    // Prevent the logo link inside the mobile button from navigating to homepage
+    var mobileLogoLink = mobileMenuToggle.querySelector('a');
+    if (mobileLogoLink) {
+      mobileLogoLink.addEventListener('click', function(e) {
+        e.preventDefault();
+      });
+    }
+
+    mobileMenuToggle.addEventListener('click', function(e) {
       body.classList.toggle('menu-open');
       // Close services dropdown when closing menu
       if (!body.classList.contains('menu-open')) {
         body.classList.remove('services-open');
       }
-    }
-    
-    menuToggle.addEventListener('click', toggleMenu);
-    menuOverlay.addEventListener('click', function() {
-      toggleMenu();
-      body.classList.remove('services-open');
     });
-    
-    // Services dropdown toggle
-    servicesCard.addEventListener('click', function(e) {
+
+    // Mobile Services Toggle
+    mobileServicesCard.addEventListener('click', function(e) {
       body.classList.toggle('services-open');
     });
-    
-    // Close menu when clicking a main menu link
-    const mainMenuLinks = menuTray.querySelectorAll('a');
-    mainMenuLinks.forEach(link => {
+
+    // Close everything when clicking overlay
+    menuOverlay.addEventListener('click', function() {
+      body.classList.remove('menu-open');
+      body.classList.remove('services-open');
+    });
+
+    // Close mobile menu when clicking a main menu link
+    const mobileMenuLinks = mobileMenuTray.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
       link.addEventListener('click', function() {
         body.classList.remove('menu-open');
         body.classList.remove('services-open');
       });
     });
-    
-    // Close menu when clicking a services submenu link
-    const submenuLinks = servicesSubmenu.querySelectorAll('a');
+
+    // Close menus when clicking desktop nav links
+    const desktopNavLinks = document.querySelectorAll('.desktop-nav a');
+    desktopNavLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        body.classList.remove('services-open');
+      });
+    });
+
+    // Close menus when clicking services submenu links (both desktop and mobile)
+    const submenuLinks = document.querySelectorAll('.services-submenu-tray a, .mobile-services-submenu a');
     submenuLinks.forEach(link => {
       link.addEventListener('click', function() {
         body.classList.remove('menu-open');
         body.classList.remove('services-open');
       });
     });
-    
+
     // Close menu on escape key
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
