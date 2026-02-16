@@ -12,6 +12,11 @@
     padding-top: 0 !important;
   }
 
+  /* Lock scroll when mobile menu is open */
+  body.menu-open {
+    overflow: hidden !important;
+  }
+
   /* Push first section content below the fixed header,
      while its background still extends behind the pill */
   .page-section:first-child,
@@ -109,7 +114,7 @@
     border-top-color: #0fbcb0;
   }
 
-  body.services-open .desktop-nav .dropdown-arrow {
+  body.desktop-services-open .desktop-nav .dropdown-arrow {
     transform: rotate(180deg);
   }
 
@@ -134,13 +139,8 @@
     background: #0da399;
   }
 
-  /* ========== DESKTOP SERVICES DROPDOWN (old floating - hidden) ========== */
   .services-wrapper {
     position: relative;
-  }
-
-  .services-dropdown {
-    display: none !important;
   }
 
   /* ========== SERVICES EXPANSION TRAY (inside pill) ========== */
@@ -153,8 +153,8 @@
     padding: 0 4px;
   }
 
-  body.services-open .services-tray {
-    max-height: 200px;
+  body.desktop-services-open .services-tray {
+    max-height: 300px;
     opacity: 1;
     padding: 16px 4px 6px;
   }
@@ -181,7 +181,7 @@
   }
 
   /* Pill shape change when expanded (desktop only) */
-  body.services-open:not(.menu-open) .header-inner {
+  body.desktop-services-open .header-inner {
     border-radius: 24px;
   }
 
@@ -290,7 +290,7 @@
     position: fixed;
     inset: 0;
     background: #0fbcb0;
-    z-index: 40;
+    z-index: 9998;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -393,10 +393,10 @@
     z-index: 9997;
   }
 
-  /* Hide desktop overlay when mobile menu is open */
-  body.menu-open .backdrop-overlay {
-    opacity: 0;
-    visibility: hidden;
+  /* Show backdrop when desktop services tray is open */
+  body.desktop-services-open .backdrop-overlay {
+    opacity: 1;
+    visibility: visible;
   }
 
   /* ========== SCREEN READER ONLY ========== */
@@ -575,17 +575,6 @@
           <div class="dropdown-arrow"></div>
         </button>
 
-        <div class="services-dropdown" id="servicesDropdown">
-          <div class="services-dropdown-inner">
-            <a href="/treatments">General</a>
-            <a href="/treatment/teeth-whitening">Teeth Whitening</a>
-            <a href="/treatment/veneers">Veneers</a>
-            <a href="/cosmetic-bonding">Composite Bonding</a>
-            <a href="/hygienist-london">Hygiene</a>
-            <a href="/treatment/implants">Implants</a>
-            <a href="/treatment/invisalign">Invisalign</a>
-          </div>
-        </div>
       </div>
 
       <a href="/fees">Fees</a>
@@ -663,121 +652,94 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var body = document.body;
-
-    // Desktop Services Toggle
     var servicesToggle = document.getElementById('servicesToggle');
-    var servicesDropdown = document.getElementById('servicesDropdown');
+    var menuToggle = document.getElementById('menuToggle');
+    var mobileServicesToggle = document.getElementById('mobileServicesToggle');
+    var backdropOverlay = document.getElementById('backdropOverlay');
 
+    // --- Helpers ---
+    function closeDesktopServices() {
+      body.classList.remove('desktop-services-open');
+      servicesToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function closeMobileServices() {
+      body.classList.remove('services-open');
+      mobileServicesToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function closeMobileMenu() {
+      body.classList.remove('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      closeMobileServices();
+    }
+
+    // --- Desktop Treatments tray toggle ---
     servicesToggle.addEventListener('click', function(e) {
       e.stopPropagation();
-      var isOpen = body.classList.toggle('services-open');
+      var isOpen = body.classList.toggle('desktop-services-open');
       servicesToggle.setAttribute('aria-expanded', isOpen);
     });
 
-    // Mobile Menu Toggle
-    var menuToggle = document.getElementById('menuToggle');
+    // Close desktop tray when clicking tray links
+    document.querySelectorAll('.services-tray-inner a').forEach(function(link) {
+      link.addEventListener('click', closeDesktopServices);
+    });
 
+    // Close desktop tray when clicking other desktop nav links
+    document.querySelectorAll('.desktop-nav > a').forEach(function(link) {
+      link.addEventListener('click', closeDesktopServices);
+    });
+
+    // Close desktop tray when clicking backdrop
+    backdropOverlay.addEventListener('click', closeDesktopServices);
+
+    // Close desktop tray when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!body.classList.contains('desktop-services-open')) return;
+      var wrapper = document.querySelector('.services-wrapper');
+      var tray = document.getElementById('servicesTray');
+      if (!wrapper.contains(e.target) && !tray.contains(e.target)) {
+        closeDesktopServices();
+      }
+    });
+
+    // --- Mobile menu toggle ---
     menuToggle.addEventListener('click', function() {
       var isOpen = body.classList.toggle('menu-open');
       menuToggle.setAttribute('aria-expanded', isOpen);
 
-      // Close services submenu when closing menu
-      if (!isOpen) {
-        body.classList.remove('services-open');
-        var mobileServicesToggle = document.getElementById('mobileServicesToggle');
-        if (mobileServicesToggle) {
-          mobileServicesToggle.setAttribute('aria-expanded', 'false');
-        }
-      }
+      // Clear any stale state when opening or closing
+      closeMobileServices();
+      closeDesktopServices();
     });
 
-    // Mobile Services Toggle
-    var mobileServicesToggle = document.getElementById('mobileServicesToggle');
-
+    // --- Mobile Treatments submenu toggle ---
     mobileServicesToggle.addEventListener('click', function() {
       var isOpen = body.classList.toggle('services-open');
       mobileServicesToggle.setAttribute('aria-expanded', isOpen);
     });
 
-    // Close everything when clicking backdrop overlay
-    var backdropOverlay = document.getElementById('backdropOverlay');
-    backdropOverlay.addEventListener('click', function() {
-      body.classList.remove('services-open');
-      servicesToggle.setAttribute('aria-expanded', 'false');
+    // Close mobile menu when clicking nav links
+    document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+      link.addEventListener('click', closeMobileMenu);
     });
 
-    // Close mobile menu when clicking a nav link
-    var mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-    mobileNavLinks.forEach(function(link) {
-      link.addEventListener('click', function() {
-        body.classList.remove('menu-open');
-        body.classList.remove('services-open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      });
+    // Close mobile menu when clicking treatment submenu links
+    document.querySelectorAll('.mobile-services-list a').forEach(function(link) {
+      link.addEventListener('click', closeMobileMenu);
     });
 
-    // Close mobile menu when clicking services submenu links
-    var mobileServicesLinks = document.querySelectorAll('.mobile-services-list a');
-    mobileServicesLinks.forEach(function(link) {
-      link.addEventListener('click', function() {
-        body.classList.remove('menu-open');
-        body.classList.remove('services-open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // Close desktop services when clicking desktop nav links
-    var desktopNavLinks = document.querySelectorAll('.desktop-nav > a');
-    desktopNavLinks.forEach(function(link) {
-      link.addEventListener('click', function() {
-        body.classList.remove('services-open');
-        servicesToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // Close desktop services when clicking dropdown links
-    var dropdownLinks = document.querySelectorAll('.services-dropdown-inner a');
-    dropdownLinks.forEach(function(link) {
-      link.addEventListener('click', function() {
-        body.classList.remove('services-open');
-        servicesToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // Close services when clicking tray links
-    var trayLinks = document.querySelectorAll('.services-tray-inner a');
-    trayLinks.forEach(function(link) {
-      link.addEventListener('click', function() {
-        body.classList.remove('services-open');
-        servicesToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // Close menus on Escape key
+    // --- Escape key ---
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        if (body.classList.contains('services-open')) {
-          body.classList.remove('services-open');
-          servicesToggle.setAttribute('aria-expanded', 'false');
-          if (mobileServicesToggle) {
-            mobileServicesToggle.setAttribute('aria-expanded', 'false');
-          }
-        } else if (body.classList.contains('menu-open')) {
-          body.classList.remove('menu-open');
-          menuToggle.setAttribute('aria-expanded', 'false');
-        }
-      }
-    });
+      if (e.key !== 'Escape') return;
 
-    // Close desktop services dropdown when clicking outside
-    document.addEventListener('click', function(e) {
-      if (body.classList.contains('services-open') && !body.classList.contains('menu-open')) {
-        var wrapper = document.querySelector('.services-wrapper');
-        var tray = document.getElementById('servicesTray');
-        if (!wrapper.contains(e.target) && !tray.contains(e.target)) {
-          body.classList.remove('services-open');
-          servicesToggle.setAttribute('aria-expanded', 'false');
-        }
+      if (body.classList.contains('desktop-services-open')) {
+        closeDesktopServices();
+      } else if (body.classList.contains('services-open')) {
+        closeMobileServices();
+      } else if (body.classList.contains('menu-open')) {
+        closeMobileMenu();
       }
     });
   });
