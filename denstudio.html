@@ -1,0 +1,458 @@
+// ====== MEGA MENU FUNCTIONALITY (OPTIMIZED) ======
+(function () {
+  'use strict';
+  
+  // Only run once
+  if (window.__megaMenuMounted) return;
+  window.__megaMenuMounted = true;
+  
+  const isDesktop = () => window.matchMedia("(min-width: 901px)").matches;
+  const norm = (s) => (s || "").replace(/\s+/g, " ").trim().toLowerCase();
+  
+  // ====== MENU DEFINITIONS ======
+  const MENUS = [
+    {
+      key: "concerns",
+      label: "concerns",
+      path: "/mega-concerns",
+      html: `<div class="header-mega-inner">
+        <div class="header-mega-grid">
+          <a href="/veneers" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/9534552c-9646-486b-bc0b-25d64780663c/Jan+31+2026+Screenshot+from+Squoosh+%284%29.webp?format=750w" alt="Replace Metal Crowns">
+            <span>REPLACE METAL CROWNS</span>
+          </a>
+          <a href="/whats-your-concern/#whitespots" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/0d610ace-addc-4fa1-b1ef-95aacbedc388/Jan+31+Screenshot+from+Squoosh+%282%29.webp?format=750w" alt="White Spots">
+            <span>WHITE SPOTS</span>
+          </a>
+          <a href="/whats-your-concern/#missingteeth" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/87e2eb00-3ba7-40e7-85b5-db81fe99ed53/Jan+31+Screenshot+from+Squoosh+%281%29.webp?format=750w" alt="Missing Teeth">
+            <span>MISSING TEETH</span>
+          </a>
+          <a href="/hygiene" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/6956ff62-241b-4a78-be4a-f773026a7b39/Jan+31+2026+Screenshot+from+Squoosh+%283%29.webp?format=750w" alt="Stains">
+            <span>STAINS</span>
+          </a>
+          <a href="/veneers" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/92d17cd6-b8fe-459b-b1c8-7b2eb5285c67/Jan+31+2026+Screenshot+from+Squoosh+%282%29.webp?format=750w" alt="Chipped or Broken">
+            <span>CHIPPED / BROKEN</span>
+          </a>
+          <a href="/teeth-straightening" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/a06cfc8a-b3f0-4ad9-8e8e-7ea08a7f0182/Jan+31+2026+Screenshot+from+Squoosh+%281%29.webp?format=750w" alt="Crowded Teeth">
+            <span>CROWDED TEETH</span>
+          </a>
+          <a href="/whats-your-concern/#gapsbetweenteeth" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/90caea9a-54dc-44a7-8bbb-ea9eb0f2d300/Jan+31+Screenshot+from+Squoosh.webp?format=750w" alt="Gaps Between Teeth">
+            <span>GAPS BETWEEN TEETH</span>
+          </a>
+          <a href="/whats-your-concern/#gummysmile" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/cc68229e-d87f-4802-aac1-0b3a3c7e6d29/Jan+31+2026+Screenshot+from+Squoosh.webp?format=750w" alt="Gummy Smile">
+            <span>GUMMY SMILE</span>
+          </a>
+        </div>
+      </div>`
+    },
+    {
+      key: "treatments",
+      label: "treatments",
+      path: "/treatments",
+      html: `<div class="header-mega-inner">
+        <div class="header-mega-grid">
+          <a href="/general" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/4a37d3ea-3b07-4ae4-919d-1df0a63656c6/Image+from+Dropbox+%281%29.jpeg?format=750w" alt="General">
+            <span>GENERAL</span>
+          </a>
+          <a href="/teeth-straightening" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/a543d83b-3b04-4666-9973-bd05478141d2/YJ61+L1w.jpeg?format=750w" alt="Teeth Straightening">
+            <span>TEETH STRAIGHTENING</span>
+          </a>
+          <a href="/composite-bonding" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/a21ae2f0-1ca8-458c-98cc-51a8ebb71a39/Image+from+Dropbox+%282%29.jpeg?format=750w" alt="Composite Bonding">
+            <span>COMPOSITE BONDING</span>
+          </a>
+          <a href="/porcelain-veneers" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/ffa6293f-cc00-4c44-afe9-e76405bdc182/Mob+6+%281%29.webp?format=750w" alt="Porcelain Veneers">
+            <span>PORCELAIN VENEERS</span>
+          </a>
+          <a href="/teeth-whitening" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/3fe07a01-7fdc-48c0-878a-81402e551eb1/Image+from+Dropbox+%283%29.jpeg?format=750w" alt="Teeth Whitening">
+            <span>TEETH WHITENING</span>
+          </a>
+          <a href="/hygiene" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/bea3c4bc-dc6f-4d95-b7fe-567cbbb56692/Dr+Jana+Cosmetic+Dentist.jpg?format=750w" alt="Hygiene">
+            <span>HYGIENE</span>
+          </a>
+          <a href="/gum-reshaping" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/2c4bb34a-70ef-4a14-a3d1-322196dbe1dc/Gum+Reshaping+Composite+Bonding.webp?format=750w" alt="Gum Reshaping">
+            <span>GUM RESHAPING</span>
+          </a>
+          <a href="/retainers" class="header-mega-item">
+            <img src="https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/8bb65646-be06-4a1d-ac10-44470e543480/Invisalign.png?format=750w" alt="Retainers">
+            <span>RETAINERS</span>
+          </a>
+        </div>
+      </div>`
+    }
+  ];
+  
+  // ===== UI ELEMENTS =====
+  const overlay = document.createElement("div");
+  overlay.className = "header-mega-overlay";
+  
+  const bridge = document.createElement("div");
+  bridge.className = "header-mega-bridge";
+  
+  const tray = document.createElement("div");
+  tray.className = "header-mega-tray";
+  
+  let mounted = false;
+  function mount() {
+    if (mounted) return;
+    document.body.appendChild(overlay);
+    document.body.appendChild(bridge);
+    document.body.appendChild(tray);
+    mounted = true;
+  }
+  
+  // Position under header (throttled)
+function positionUnderHeader() {
+  if (window.__positionRaf) return; // Prevent multiple calls
+  
+  window.__positionRaf = requestAnimationFrame(() => {
+    window.__positionRaf = null;
+    
+    const header = document.querySelector("header");
+    if (!header) return;
+    
+    // Batch DOM read in animation frame
+    const headerBottom = Math.round(header.getBoundingClientRect().bottom);
+    const bridgeH = 52;
+    
+    // Batch DOM writes
+    requestAnimationFrame(() => {
+      document.documentElement.style.setProperty("--mega-overlay-top", headerBottom + "px");
+      document.documentElement.style.setProperty("--mega-bridge-top", headerBottom + "px");
+      document.documentElement.style.setProperty("--mega-top-offset", (headerBottom + bridgeH) + "px");
+    });
+  });
+}
+  
+  let closeTimer = null;
+  let activeKey = null;
+  let lastTrigger = null;
+  
+  function cancelClose() {
+    if (closeTimer) clearTimeout(closeTimer);
+    closeTimer = null;
+  }
+  
+  function close() {
+    tray.classList.remove("is-open");
+    bridge.classList.remove("is-open");
+    overlay.classList.remove("is-open");
+    if (lastTrigger) lastTrigger.setAttribute("aria-expanded", "false");
+    activeKey = null;
+  }
+  
+  function scheduleClose(ms) {
+    cancelClose();
+    closeTimer = setTimeout(close, ms);
+  }
+  
+  function setTrayContent(menuKey) {
+    if (activeKey === menuKey) return;
+    const menu = MENUS.find(m => m.key === menuKey);
+    if (!menu) return;
+    tray.innerHTML = menu.html;
+    activeKey = menuKey;
+  }
+  
+  function open(menuKey, triggerEl) {
+    if (!isDesktop()) return;
+    mount();
+    positionUnderHeader();
+    setTrayContent(menuKey);
+    lastTrigger = triggerEl || lastTrigger || null;
+    tray.classList.add("is-open");
+    bridge.classList.add("is-open");
+    overlay.classList.add("is-open");
+    if (lastTrigger) lastTrigger.setAttribute("aria-expanded", "true");
+  }
+  
+  function matchMenuFromLink(a) {
+    if (!a) return null;
+    const hrefAttr = a.getAttribute("href") || "";
+    const hrefAbs = a.href || "";
+    const text = norm(a.textContent);
+    
+    for (const m of MENUS) {
+      const pathMatch = hrefAttr.includes(m.path) || hrefAbs.includes(m.path);
+      const labelMatch = text === m.label;
+      if (pathMatch || labelMatch) return m.key;
+    }
+    return null;
+  }
+  
+  function isHeaderLink(a) {
+    return !!(a && a.closest && a.closest("header"));
+  }
+  
+  // Throttled hover (reduced from every mousemove)
+  let hoverTimeout;
+  function processHover(e) {
+    if (!isDesktop()) return;
+    
+    clearTimeout(hoverTimeout);
+    hoverTimeout = setTimeout(() => {
+      const target = e.target;
+      const overTray = tray.contains(target);
+      const overBridge = bridge.contains(target);
+      const a = target && target.closest ? target.closest("a") : null;
+      
+      const menuKey = a ? matchMenuFromLink(a) : null;
+      if (menuKey) {
+        cancelClose();
+        open(menuKey, a);
+        return;
+      }
+      
+      if (a && isHeaderLink(a) && !menuKey) {
+        cancelClose();
+        if (tray.classList.contains("is-open")) close();
+        return;
+      }
+      
+      if (overTray || overBridge) {
+        cancelClose();
+        return;
+      }
+      
+      if (tray.classList.contains("is-open")) {
+        scheduleClose(140);
+      }
+    }, 50); // Throttle to 20fps instead of every frame
+  }
+  
+  document.addEventListener("mousemove", processHover, { passive: true });
+  
+  // Scroll/resize handling (throttled)
+  let scrollTimeout;
+  window.addEventListener("scroll", () => {
+    if (!tray.classList.contains("is-open")) return;
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(positionUnderHeader, 100);
+  }, { passive: true });
+  
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(positionUnderHeader, 100);
+  });
+  
+  overlay.addEventListener("click", close);
+  
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+  
+  // Mobile tap
+  document.addEventListener("click", (e) => {
+    if (isDesktop()) return;
+    const a = e.target && e.target.closest ? e.target.closest("a") : null;
+    if (!a) return;
+    const menuKey = matchMenuFromLink(a);
+    if (!menuKey) return;
+    
+    e.preventDefault();
+    mount();
+    positionUnderHeader();
+    
+    if (tray.classList.contains("is-open") && activeKey === menuKey) {
+      close();
+    } else {
+      open(menuKey, a);
+    }
+  });
+})();
+</script>
+
+<script>
+// ====== HIDE CONFLICTING NAV ITEMS (OPTIMIZED) ======
+(function() {
+  'use strict';
+  
+  // Only run once
+  if (window.__navHideMounted) return;
+  window.__navHideMounted = true;
+  
+  const DESKTOP_MQ = window.matchMedia('(min-width: 901px)');
+  const norm = (s) => (s || '').replace(/\s+/g, ' ').trim().toLowerCase();
+  
+  function hideNode(node) {
+    if (node) node.style.display = 'none';
+  }
+  
+  function hideTreatments1OnDesktop() {
+    if (!DESKTOP_MQ.matches) return;
+    
+    const header = document.querySelector('header');
+    if (!header) return;
+    
+    // Hide /treatments-1 links (desktop only)
+    header.querySelectorAll('a[href*="/treatments-1"]').forEach(a => {
+      hideNode(a.closest('li') || a.parentElement || a);
+    });
+    
+    // Hide folder-style "Treatments" triggers (desktop only)
+    header.querySelectorAll('a, button, span').forEach(el => {
+      if (norm(el.textContent) !== 'treatments') return;
+      
+      const isFolderLike = 
+        el.getAttribute('aria-haspopup') === 'true' ||
+        el.getAttribute('aria-expanded') !== null ||
+        el.className.toLowerCase().includes('folder') ||
+        el.closest('[aria-haspopup="true"]');
+      
+      if (isFolderLike) {
+        hideNode(el.closest('li') || el.parentElement || el);
+      }
+    });
+  }
+  
+  // Run once on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hideTreatments1OnDesktop, { once: true });
+  } else {
+    hideTreatments1OnDesktop();
+  }
+  
+  // Watch for Squarespace navigation changes (debounced)
+  let mutationTimeout;
+  const observer = new MutationObserver(() => {
+    clearTimeout(mutationTimeout);
+    mutationTimeout = setTimeout(hideTreatments1OnDesktop, 200);
+  });
+  
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
+})();
+</script>
+<script>
+// ====== SAFE PERFORMANCE OPTIMIZATIONS ======
+(function() {
+  'use strict';
+  
+  // Only run once
+  if (window.__perfOptimized) return;
+  window.__perfOptimized = true;
+  
+  // 1. Cache fonts in localStorage (survives refresh)
+  if ('fonts' in document && 'localStorage' in window) {
+    const fontCache = localStorage.getItem('fonts-cached');
+    const cacheTime = localStorage.getItem('fonts-cache-time');
+    
+    // Cache fonts for 7 days
+    if (!fontCache || (Date.now() - cacheTime > 604800000)) {
+      document.fonts.ready.then(() => {
+        localStorage.setItem('fonts-cached', 'true');
+        localStorage.setItem('fonts-cache-time', Date.now());
+      });
+    }
+  }
+  
+  // 2. Preload next page on hover (instant navigation feel)
+  document.addEventListener('mouseover', function(e) {
+    const link = e.target.closest('a');
+    if (!link || link.hasAttribute('data-preloaded')) return;
+    
+    // Only preload internal links
+    if (link.hostname === window.location.hostname) {
+      const preload = document.createElement('link');
+      preload.rel = 'prefetch';
+      preload.href = link.href;
+      document.head.appendChild(preload);
+      link.setAttribute('data-preloaded', 'true');
+    }
+  }, { passive: true });
+  
+  // 3. Mark page as fully loaded (for debugging)
+  window.addEventListener('load', () => {
+    sessionStorage.setItem('page-loaded', Date.now());
+    console.log('Page fully loaded in', Date.now() - performance.timing.navigationStart, 'ms');
+  }, { once: true });
+  
+})();
+</script>
+
+<script>
+// ====== IMAGE LOADING OPTIMIZATION ======
+(function() {
+  'use strict';
+  
+  if (window.__imgOptimized) return;
+  window.__imgOptimized = true;
+  
+  // Intersection Observer for better lazy loading
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          
+          // Load image if it has data-src
+          if (img.dataset.src && !img.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+          }
+          
+          // Add loaded class for fade-in effect
+          img.classList.add('loaded');
+          
+          imageObserver.unobserve(img);
+        }
+      });
+    }, {
+      rootMargin: '100px', // Load 100px before visible
+      threshold: 0.01
+    });
+    
+    // Apply to all images
+    setTimeout(() => {
+      document.querySelectorAll('img').forEach(img => {
+        if (!img.complete) {
+          imageObserver.observe(img);
+        }
+      });
+    }, 100);
+  }
+  
+  // Preload images from mega menu on first open
+  let megaImagesPreloaded = false;
+  document.addEventListener('mouseover', function(e) {
+    if (megaImagesPreloaded) return;
+    
+    const megaTrigger = e.target.closest('a[href*="/mega-"], a[href*="/treatments"]');
+    if (megaTrigger) {
+      megaImagesPreloaded = true;
+      
+      // Preload mega menu images
+      const megaImages = [
+        'https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/9534552c-9646-486b-bc0b-25d64780663c/Jan+31+2026+Screenshot+from+Squoosh+%284%29.webp?format=500w',
+        'https://images.squarespace-cdn.com/content/v1/69296b2ce9500b45c098c974/0d610ace-addc-4fa1-b1ef-95aacbedc388/Jan+31+Screenshot+from+Squoosh+%282%29.webp?format=500w',
+        // Add more mega menu images here
+      ];
+      
+      megaImages.forEach(url => {
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
+        link.as = 'image';
+        link.href = url;
+        document.head.appendChild(link);
+      });
+    }
+  }, { passive: true, once: true });
+  
+})();
+</script>
