@@ -1,5 +1,6 @@
 // ============================================================
-// LDC Homepage Animations — Flecto-style smooth scroll reveals
+// LDC Homepage Animations
+// Flecto-style scroll reveals, blob grow-in, card expand
 // IIFE with mount guard to prevent duplicate init
 // ============================================================
 (function () {
@@ -17,7 +18,6 @@
   }
 
   // --- Scroll Reveal (IntersectionObserver) ---
-  // Handles all reveal variants: .ldc-hp-reveal, -scale, -left, -right, -stagger
   function initScrollReveal() {
     var selectors = [
       '.ldc-hp-reveal',
@@ -44,6 +44,105 @@
     elements.forEach(function (el) {
       observer.observe(el);
     });
+  }
+
+  // --- Flecto-style Blob Grow-In on Scroll ---
+  function initBlobAnimations() {
+    var blobs = document.querySelectorAll('.ldc-hp-blob');
+    if (!blobs.length) return;
+
+    // Hero blobs appear immediately on load
+    var heroBlobs = document.querySelectorAll('.ldc-hp-blob--hero-1, .ldc-hp-blob--hero-2, .ldc-hp-blob--hero-3');
+    heroBlobs.forEach(function (blob, i) {
+      setTimeout(function () {
+        blob.classList.add('blob-visible');
+      }, 300 + (i * 200));
+    });
+
+    // Other blobs appear on scroll
+    var scrollBlobs = document.querySelectorAll('.ldc-hp-blob:not([class*="hero"])');
+    if (!scrollBlobs.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('blob-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.05,
+      rootMargin: '100px 0px 0px 0px'
+    });
+
+    scrollBlobs.forEach(function (el) {
+      observer.observe(el);
+    });
+  }
+
+  // --- Flecto-style Card Grow on Scroll ---
+  function initCardGrow() {
+    var cards = document.querySelectorAll(
+      '.ldc-hp-service-card, .ldc-hp-step, .ldc-hp-team-card, .ldc-hp-review-card, .ldc-hp-trust-item, .ldc-hp-faq-item'
+    );
+    if (!cards.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          // Stagger delay based on position among siblings
+          var parent = entry.target.parentElement;
+          var siblings = parent ? Array.prototype.slice.call(parent.children) : [];
+          var index = siblings.indexOf(entry.target);
+          var delay = Math.min(index * 100, 600);
+
+          setTimeout(function () {
+            entry.target.classList.add('card-grown');
+          }, delay);
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    cards.forEach(function (el) {
+      observer.observe(el);
+    });
+  }
+
+  // --- Parallax Blobs on Scroll (subtle movement) ---
+  function initBlobParallax() {
+    var blobs = document.querySelectorAll('.ldc-hp-blob');
+    if (!blobs.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var ticking = false;
+
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(function () {
+          var scrollY = window.pageYOffset;
+          blobs.forEach(function (blob) {
+            var rect = blob.getBoundingClientRect();
+            var inView = rect.top < window.innerHeight && rect.bottom > 0;
+            if (inView) {
+              var speed = blob.classList.contains('ldc-hp-blob--hero-1') ? 0.03 :
+                          blob.classList.contains('ldc-hp-blob--hero-2') ? -0.02 : 0.015;
+              var y = scrollY * speed;
+              blob.style.transform = blob.classList.contains('blob-visible')
+                ? 'scale(1) translateY(' + y + 'px)'
+                : '';
+            }
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
   // --- Stat Counter Animation ---
@@ -76,7 +175,6 @@
     function step(timestamp) {
       if (!startTime) startTime = timestamp;
       var progress = Math.min((timestamp - startTime) / duration, 1);
-      // Ease-out cubic for smooth settle
       var eased = 1 - Math.pow(1 - progress, 3);
       var current = eased * target;
 
@@ -106,12 +204,10 @@
       btn.addEventListener('click', function () {
         var isOpen = item.classList.contains('open');
 
-        // Close all others
         items.forEach(function (other) {
           if (other !== item) other.classList.remove('open');
         });
 
-        // Toggle current
         item.classList.toggle('open', !isOpen);
       });
     });
@@ -167,6 +263,9 @@
   function init() {
     revealPage();
     initScrollReveal();
+    initBlobAnimations();
+    initCardGrow();
+    initBlobParallax();
     initCounters();
     initFAQ();
     initReviewCarousel();

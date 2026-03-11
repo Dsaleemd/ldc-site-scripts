@@ -172,24 +172,24 @@
   transform: translateY(-2px);
 }
 .ldc-hp-btn-primary {
-  background: var(--accent);
-  color: var(--white);
-  border-color: var(--accent);
+  background: var(--accent) !important;
+  color: var(--white) !important;
+  border-color: var(--accent) !important;
 }
 .ldc-hp-btn-primary:hover {
-  background: var(--accent-hover);
-  color: var(--white);
+  background: var(--accent-hover) !important;
+  color: var(--white) !important;
   box-shadow: 0 6px 24px var(--accent-glow);
 }
 .ldc-hp-btn-outline {
-  background: transparent;
-  color: var(--white);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: transparent !important;
+  color: var(--white) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
 }
 .ldc-hp-btn-outline:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--white);
-  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: var(--white) !important;
+  border-color: var(--white) !important;
 }
 .ldc-hp-btn-dark {
   background: var(--dark);
@@ -202,23 +202,6 @@
   box-shadow: 0 6px 24px rgba(26, 60, 52, 0.2);
 }
 
-/* ============================================================
-   FINANCE BANNER
-   ============================================================ */
-.ldc-hp-finance-banner {
-  background: var(--dark);
-  color: var(--text-on-dark-2);
-  text-align: center;
-  padding: 0.7rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-}
-.ldc-hp-finance-banner a {
-  color: var(--accent);
-  text-decoration: underline;
-  font-weight: 600;
-}
 
 /* ============================================================
    HERO SECTION
@@ -359,6 +342,7 @@
 .ldc-hp-about {
   background: var(--dark);
   position: relative;
+  overflow: hidden;
 }
 .ldc-hp-about-grid {
   display: grid;
@@ -406,12 +390,12 @@
 .ldc-hp-video .ldc-hp-heading { color: var(--text-on-dark-1); }
 .ldc-hp-video .ldc-hp-subheading { color: var(--text-on-dark-3); }
 .ldc-hp-video-wrap {
-  max-width: 900px;
+  max-width: 480px;
   margin: 0 auto;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
-  aspect-ratio: 16/9;
+  aspect-ratio: 9/16;
 }
 .ldc-hp-video-wrap iframe,
 .ldc-hp-video-wrap .wistia_embed {
@@ -433,6 +417,7 @@
 .ldc-hp-services {
   background: var(--white);
   position: relative;
+  overflow: hidden;
 }
 .ldc-hp-services-grid {
   display: grid;
@@ -506,6 +491,8 @@
    ============================================================ */
 .ldc-hp-process {
   background: var(--mint-pale);
+  position: relative;
+  overflow: hidden;
 }
 .ldc-hp-process-steps {
   display: grid;
@@ -828,6 +815,231 @@
 @media (max-width: 480px) {
   .ldc-hp-footer-grid { grid-template-columns: 1fr; }
   .ldc-hp-footer-bar { flex-direction: column; text-align: center; }
+}
+
+/* ============================================================
+   FLECTO-STYLE BLOB BACKGROUNDS — Curved floating shapes
+   ============================================================ */
+.ldc-hp-blob {
+  position: absolute;
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0.3);
+  transition: opacity 1.4s cubic-bezier(.19, 1, .22, 1), transform 1.4s cubic-bezier(.19, 1, .22, 1);
+  will-change: opacity, transform;
+}
+.ldc-hp-blob.blob-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hero blobs */
+.ldc-hp-blob--hero-1 {
+  width: 600px;
+  height: 600px;
+  top: -120px;
+  right: -180px;
+  background: radial-gradient(ellipse at 30% 30%, rgba(15, 188, 176, 0.15), rgba(15, 188, 176, 0.03));
+  border-radius: 35% 65% 50% 50% / 55% 40% 60% 45%;
+  z-index: 1;
+  animation: ldc-blob-morph-1 20s ease-in-out infinite alternate;
+}
+.ldc-hp-blob--hero-2 {
+  width: 400px;
+  height: 400px;
+  bottom: 80px;
+  left: -120px;
+  background: radial-gradient(ellipse at 60% 60%, rgba(212, 245, 228, 0.12), rgba(212, 245, 228, 0.02));
+  border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
+  z-index: 1;
+  animation: ldc-blob-morph-2 24s ease-in-out infinite alternate;
+}
+.ldc-hp-blob--hero-3 {
+  width: 250px;
+  height: 250px;
+  top: 30%;
+  left: 10%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(15, 188, 176, 0.1), transparent);
+  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+  z-index: 1;
+  animation: ldc-blob-morph-3 16s ease-in-out infinite alternate;
+}
+
+/* About section blobs */
+.ldc-hp-blob--about-1 {
+  width: 500px;
+  height: 500px;
+  top: -100px;
+  left: -200px;
+  background: radial-gradient(ellipse at 40% 40%, rgba(15, 188, 176, 0.1), transparent);
+  border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+  animation: ldc-blob-morph-2 22s ease-in-out infinite alternate;
+}
+.ldc-hp-blob--about-2 {
+  width: 350px;
+  height: 350px;
+  bottom: -80px;
+  right: -100px;
+  background: radial-gradient(ellipse at 60% 50%, rgba(212, 245, 228, 0.08), transparent);
+  border-radius: 50% 50% 45% 55% / 55% 45% 55% 45%;
+  animation: ldc-blob-morph-1 18s ease-in-out infinite alternate;
+}
+
+/* Services section blobs */
+.ldc-hp-blob--services-1 {
+  width: 450px;
+  height: 450px;
+  top: 20%;
+  right: -150px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(26, 60, 52, 0.04), transparent);
+  border-radius: 55% 45% 50% 50% / 45% 55% 50% 50%;
+  animation: ldc-blob-morph-3 20s ease-in-out infinite alternate;
+}
+.ldc-hp-blob--services-2 {
+  width: 350px;
+  height: 350px;
+  bottom: 10%;
+  left: -120px;
+  background: radial-gradient(ellipse at 40% 60%, rgba(15, 188, 176, 0.05), transparent);
+  border-radius: 45% 55% 55% 45% / 50% 50% 50% 50%;
+  animation: ldc-blob-morph-2 26s ease-in-out infinite alternate;
+}
+
+/* Process section blobs */
+.ldc-hp-blob--process-1 {
+  width: 400px;
+  height: 400px;
+  top: -60px;
+  right: -100px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(15, 188, 176, 0.06), transparent);
+  border-radius: 50% 50% 40% 60% / 60% 40% 60% 40%;
+  animation: ldc-blob-morph-1 24s ease-in-out infinite alternate;
+}
+.ldc-hp-blob--process-2 {
+  width: 300px;
+  height: 300px;
+  bottom: -50px;
+  left: -80px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(26, 60, 52, 0.04), transparent);
+  border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+  animation: ldc-blob-morph-3 20s ease-in-out infinite alternate;
+}
+
+/* Blob morph keyframes */
+@keyframes ldc-blob-morph-1 {
+  0% {
+    border-radius: 35% 65% 50% 50% / 55% 40% 60% 45%;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    border-radius: 50% 50% 40% 60% / 45% 55% 45% 55%;
+  }
+  66% {
+    border-radius: 40% 60% 55% 45% / 55% 45% 55% 45%;
+  }
+  100% {
+    border-radius: 55% 45% 45% 55% / 50% 50% 50% 50%;
+    transform: translate(30px, -25px) scale(1.08) rotate(5deg);
+  }
+}
+@keyframes ldc-blob-morph-2 {
+  0% {
+    border-radius: 55% 45% 40% 60% / 45% 55% 45% 55%;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    border-radius: 45% 55% 55% 45% / 55% 45% 55% 45%;
+  }
+  100% {
+    border-radius: 50% 50% 50% 50% / 40% 60% 40% 60%;
+    transform: translate(-20px, 30px) scale(1.12) rotate(-4deg);
+  }
+}
+@keyframes ldc-blob-morph-3 {
+  0% {
+    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    border-radius: 45% 55% 40% 60% / 60% 40% 60% 40%;
+    transform: translate(15px, -20px) scale(1.06);
+  }
+}
+
+/* ============================================================
+   FLECTO-STYLE GROW BLOCKS — Cards that expand on scroll
+   ============================================================ */
+.ldc-hp-service-card {
+  transform: scale(0.85) translateY(40px);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(.19, 1, .22, 1), opacity 0.8s cubic-bezier(.19, 1, .22, 1), box-shadow var(--dur-fast) ease;
+}
+.ldc-hp-service-card.card-grown {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+.ldc-hp-service-card.card-grown:hover {
+  transform: scale(1) translateY(-6px);
+}
+
+/* Steps grow animation */
+.ldc-hp-step {
+  transform: scale(0.8) translateY(30px);
+  opacity: 0;
+  transition: transform 0.9s cubic-bezier(.19, 1, .22, 1), opacity 0.7s cubic-bezier(.19, 1, .22, 1);
+}
+.ldc-hp-step.card-grown {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* Team cards grow */
+.ldc-hp-team-card {
+  transform: scale(0.85);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(.19, 1, .22, 1), opacity 0.7s cubic-bezier(.19, 1, .22, 1), box-shadow var(--dur-fast) ease;
+}
+.ldc-hp-team-card.card-grown {
+  transform: scale(1);
+  opacity: 1;
+}
+.ldc-hp-team-card.card-grown:hover {
+  transform: scale(1) translateY(-6px);
+}
+
+/* Review cards grow */
+.ldc-hp-review-card {
+  transform: scale(0.85);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(.19, 1, .22, 1), opacity 0.7s cubic-bezier(.19, 1, .22, 1);
+}
+.ldc-hp-review-card.card-grown {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Trust items grow */
+.ldc-hp-trust-item {
+  transform: scale(0.7) translateY(20px);
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(.19, 1, .22, 1), opacity 0.5s ease;
+}
+.ldc-hp-trust-item.card-grown {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* FAQ items slide-grow */
+.ldc-hp-faq-item {
+  transform: translateX(-30px);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(.19, 1, .22, 1), opacity 0.5s ease;
+}
+.ldc-hp-faq-item.card-grown {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 /* ============================================================
