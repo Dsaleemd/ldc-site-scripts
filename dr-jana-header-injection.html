@@ -1,5 +1,6 @@
 <!-- Dr Jana Page — Paste into Page Settings > Advanced > Page Header Code Injection -->
 <style>
+  /* ===== Reset & Base ===== */
   .dj-page *, .dj-page *::before, .dj-page *::after { box-sizing: border-box; margin: 0; padding: 0; }
   .dj-page {
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -11,6 +12,7 @@
   .dj-page img { max-width: 100%; height: auto; display: block; }
   .dj-page a { text-decoration: none; color: inherit; }
 
+  /* ===== Utility ===== */
   .dj-container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
   .dj-section { padding: 80px 0; }
   .dj-section--alt { background: #f8fafa; }
@@ -40,6 +42,7 @@
   .dj-body { font-size: 16px; color: #555; line-height: 1.7; }
   .dj-section--dark .dj-body { color: #b8d4d2; }
 
+  /* ===== Buttons ===== */
   .dj-btn {
     display: inline-flex;
     align-items: center;
@@ -77,19 +80,25 @@
   }
   .dj-btn--white:hover { background: #f0fffe; box-shadow: 0 6px 24px rgba(0,0,0,0.15); }
 
+  /* ===== HERO ===== */
   .dj-hero {
     position: relative;
     min-height: 92vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #0a2b2a 0%, #0e3d3a 50%, #0a2b2a 100%);
+    background-image:
+      linear-gradient(135deg, rgba(10,43,42,0.92) 0%, rgba(14,61,58,0.85) 50%, rgba(10,43,42,0.92) 100%),
+      url('https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/eec00740-cc9f-4ebd-bee1-6efdca032614/Untitled+Design+from+Canva+%282%29.jpg?format=1500w');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
     overflow: hidden;
     padding: 100px 0 80px;
   }
   .dj-hero__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 40px;
     align-items: center;
   }
   .dj-hero__content { position: relative; z-index: 2; }
@@ -108,7 +117,7 @@
   }
   .dj-hero__badge svg { flex-shrink: 0; }
   .dj-hero__title {
-    font-size: clamp(32px, 5vw, 52px);
+    font-size: clamp(32px, 5vw, 48px);
     font-weight: 700;
     line-height: 1.1;
     color: #fff;
@@ -123,7 +132,7 @@
   }
   .dj-hero__creds {
     list-style: none;
-    margin-bottom: 36px;
+    margin-bottom: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -136,31 +145,88 @@
     color: #c5e0de;
   }
   .dj-hero__creds li svg { flex-shrink: 0; color: #0fbcb0; }
-  .dj-hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-  .dj-hero__img-wrap {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-  }
-  .dj-hero__img-wrap img {
-    width: 100%;
-    max-width: 520px;
-    border-radius: 20px;
-    object-fit: cover;
-  }
-  .dj-hero__img-glow {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(15,188,176,0.2) 0%, transparent 70%);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    pointer-events: none;
-  }
 
+  /* ===== HERO FORM CARD ===== */
+  .dj-hero__form {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 28px 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 480px;
+    justify-self: end;
+  }
+  .dj-hero__form-title {
+    font-size: clamp(20px, 3vw, 24px);
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .dj-hero__form-sub {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  .dj-hero__form-cred {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .dj-hero__form-cred:last-of-type { margin-bottom: 24px; }
+  .dj-hero__form-check {
+    width: 32px;
+    height: 32px;
+    background: #0fbcb0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .dj-hero__form-check svg { color: #fff; }
+  .dj-hero__form-cred p {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.4;
+  }
+  .dj-hero__form-heading {
+    font-size: clamp(18px, 3vw, 22px);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+  .dj-hero__form iframe {
+    width: 100%;
+    height: 492px;
+    border: none;
+    border-radius: 4px;
+    display: block;
+  }
+  .dj-hero__form-stations {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #555;
+    margin-top: 12px;
+    line-height: 1.4;
+  }
+  .dj-hero__form-stations img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .dj-hero__form-stations strong { color: #1a1a1a; }
+
+  /* ===== LOGOS ===== */
   .dj-logos { padding: 40px 0; background: #fff; border-bottom: 1px solid #eee; }
   .dj-logos__label { font-size: 12px; font-weight: 500; color: #999; text-transform: uppercase; letter-spacing: 1.5px; text-align: center; margin-bottom: 24px; }
   .dj-logos__row {
@@ -179,6 +245,7 @@
   }
   .dj-logos__row img:hover { filter: grayscale(0) opacity(1); }
 
+  /* ===== ABOUT ===== */
   .dj-about__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -207,6 +274,7 @@
   }
   .dj-about__highlights li svg { flex-shrink: 0; margin-top: 3px; color: #0fbcb0; }
 
+  /* ===== GALLERY ===== */
   .dj-gallery__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -228,6 +296,7 @@
   .dj-gallery__item:hover img { transform: scale(1.05); }
   .dj-gallery__center { text-align: center; }
 
+  /* ===== PROCESS ===== */
   .dj-process__header { text-align: center; max-width: 600px; margin: 0 auto 56px; }
   .dj-process__steps {
     display: grid;
@@ -259,6 +328,7 @@
   .dj-process__step h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
   .dj-process__step p { font-size: 14px; color: #666; line-height: 1.7; }
 
+  /* ===== PRICING ===== */
   .dj-pricing__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -305,6 +375,7 @@
   .dj-card__features li { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #555; }
   .dj-card__features li svg { flex-shrink: 0; color: #0fbcb0; }
 
+  /* ===== SPECIAL OFFER ===== */
   .dj-offer {
     background: linear-gradient(135deg, #0a2b2a 0%, #0e3d3a 100%);
     border-radius: 20px;
@@ -349,6 +420,7 @@
     margin-top: 16px;
   }
 
+  /* ===== LOCATION ===== */
   .dj-location__inner { text-align: center; max-width: 560px; margin: 0 auto; }
   .dj-location__address { font-size: 17px; color: #c5e0de; margin: 8px 0 8px; }
   .dj-location__stations { font-size: 14px; color: #9ac5c2; margin-bottom: 28px; }
@@ -356,13 +428,12 @@
   .dj-location__hours span { display: flex; justify-content: space-between; gap: 40px; }
   .dj-location__hours strong { color: #fff; }
 
+  /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
     .dj-hero__grid { grid-template-columns: 1fr; text-align: center; }
     .dj-hero__sub { margin-left: auto; margin-right: auto; }
     .dj-hero__creds { align-items: center; }
-    .dj-hero__ctas { justify-content: center; }
-    .dj-hero__img-wrap { order: -1; margin-bottom: 20px; }
-    .dj-hero__img-wrap img { max-width: 360px; }
+    .dj-hero__form { justify-self: center; max-width: 100%; }
     .dj-hero { min-height: auto; padding: 120px 0 60px; }
     .dj-about__grid { grid-template-columns: 1fr; }
     .dj-about__img { max-width: 400px; margin: 0 auto; }
@@ -376,7 +447,8 @@
     .dj-section { padding: 56px 0; }
     .dj-container { padding: 0 16px; }
     .dj-hero { padding: 100px 0 48px; }
-    .dj-hero__img-wrap img { max-width: 280px; }
+    .dj-hero__form { padding: 24px 18px 20px; }
+    .dj-hero__form iframe { height: 520px; }
     .dj-gallery__grid { grid-template-columns: 1fr 1fr; gap: 10px; }
     .dj-logos__row { gap: 24px; }
     .dj-logos__row img { height: 24px; }
@@ -384,6 +456,7 @@
     .dj-offer { padding: 28px 20px; gap: 32px; }
   }
 
+  /* ===== Animations ===== */
   .dj-fade-in {
     opacity: 0;
     transform: translateY(24px);
