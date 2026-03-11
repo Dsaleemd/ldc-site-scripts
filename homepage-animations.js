@@ -1,17 +1,32 @@
 // ============================================================
-// LDC Homepage Animations — Lightweight scroll reveals,
-// stat counters, FAQ toggles, review carousel
+// LDC Homepage Animations — Flecto-style smooth scroll reveals
+// IIFE with mount guard to prevent duplicate init
 // ============================================================
 (function () {
   'use strict';
 
-  // Prevent double-mount
   if (window.__ldcHomepageAnimsMounted) return;
   window.__ldcHomepageAnimsMounted = true;
 
+  // --- FOUC Prevention: reveal .ldc-hp once CSS + DOM are ready ---
+  function revealPage() {
+    var root = document.querySelector('.ldc-hp');
+    if (root) {
+      root.classList.add('ldc-hp-ready');
+    }
+  }
+
   // --- Scroll Reveal (IntersectionObserver) ---
+  // Handles all reveal variants: .ldc-hp-reveal, -scale, -left, -right, -stagger
   function initScrollReveal() {
-    var elements = document.querySelectorAll('.ldc-hp-reveal, .ldc-hp-reveal-stagger');
+    var selectors = [
+      '.ldc-hp-reveal',
+      '.ldc-hp-reveal-scale',
+      '.ldc-hp-reveal-left',
+      '.ldc-hp-reveal-right',
+      '.ldc-hp-reveal-stagger'
+    ];
+    var elements = document.querySelectorAll(selectors.join(','));
     if (!elements.length) return;
 
     var observer = new IntersectionObserver(function (entries) {
@@ -22,8 +37,8 @@
         }
       });
     }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -40px 0px'
+      threshold: 0.12,
+      rootMargin: '0px 0px -60px 0px'
     });
 
     elements.forEach(function (el) {
@@ -55,7 +70,7 @@
     var prefix = el.getAttribute('data-count-prefix') || '';
     var suffix = el.getAttribute('data-count-suffix') || '';
     var decimal = el.getAttribute('data-count-decimal') ? parseInt(el.getAttribute('data-count-decimal'), 10) : 0;
-    var duration = 1800;
+    var duration = 2000;
     var startTime = null;
 
     function step(timestamp) {
@@ -118,7 +133,6 @@
       });
     });
 
-    // Update active dot on scroll
     var scrollTimeout;
     scroll.addEventListener('scroll', function () {
       clearTimeout(scrollTimeout);
@@ -149,17 +163,9 @@
     });
   }
 
-  // --- Hero Image Preload ---
-  function preloadHeroImage() {
-    var heroImg = document.querySelector('.ldc-hp-hero-bg img');
-    if (heroImg && heroImg.dataset.src) {
-      heroImg.src = heroImg.dataset.src;
-    }
-  }
-
   // --- Initialize All ---
   function init() {
-    preloadHeroImage();
+    revealPage();
     initScrollReveal();
     initCounters();
     initFAQ();
