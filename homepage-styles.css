@@ -93,6 +93,43 @@
   width: 100%;
 }
 
+/* Flecto-style: rounded container that overlaps previous section */
+.ldc-hp-rounded-section {
+  position: relative;
+  z-index: 2;
+  border-radius: 32px 32px 0 0;
+  margin-top: -32px;
+}
+
+/* Video embed container */
+.ldc-hp-video {
+  background: var(--dark);
+  position: relative;
+}
+
+.ldc-hp-video-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0, 68, 67, 0.3);
+  aspect-ratio: 16/9;
+}
+
+.ldc-hp-video-wrap iframe,
+.ldc-hp-video-wrap .wistia_embed {
+  width: 100%;
+  height: 100%;
+}
+
+.ldc-hp-video .ldc-hp-heading {
+  color: var(--white);
+}
+
+.ldc-hp-video .ldc-hp-subheading {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 /* --- Section Headings --- */
 .ldc-hp-heading {
   font-size: clamp(1.75rem, 3.5vw, 2.75rem);
@@ -324,11 +361,18 @@
 }
 
 /* ============================================================
-   ABOUT SECTION
+   ABOUT SECTION — Flecto-style dark bg with floating white card
    ============================================================ */
 .ldc-hp-about {
-  background: var(--white);
+  background: var(--dark);
   position: relative;
+}
+
+.ldc-hp-about .ldc-hp-about-text {
+  background: var(--white);
+  border-radius: var(--radius-card);
+  padding: clamp(2rem, 4vw, 3rem);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
 }
 
 .ldc-hp-about-grid {
