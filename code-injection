@@ -1,15 +1,46 @@
 <div id="cloudflare-header"></div>
+
+<!-- Homepage Schema + Meta (replaces ALL existing Organization/LocalBusiness/WebSite schema) -->
+<div id="cloudflare-schema"></div>
+
+<!-- Homepage Styles -->
+<link rel="stylesheet" href="https://1e0d8781.ldc-site-scripts.pages.dev/homepage-styles.css">
+
 <script>
-  fetch('https://1e0d8781.ldc-site-scripts.pages.dev/header.html')
-    .then(response => response.text())
-    .then(html => {
-      // Insert the HTML/CSS
+  var cfBase = 'https://1e0d8781.ldc-site-scripts.pages.dev';
+
+  // Load header
+  fetch(cfBase + '/header.html')
+    .then(function(r) { return r.text(); })
+    .then(function(html) {
       document.getElementById('cloudflare-header').innerHTML = html;
-      
-      // Extract and execute the script
-      const scriptContent = html.match(/<script>([\s\S]*?)<\/script>/);
+      var scriptContent = html.match(/<script>([\s\S]*?)<\/script>/);
       if (scriptContent && scriptContent[1]) {
         eval(scriptContent[1]);
       }
     });
+
+  // Load homepage schema (only on homepage)
+  if (window.location.pathname === '/' || window.location.pathname === '') {
+    fetch(cfBase + '/homepage-schema.html')
+      .then(function(r) { return r.text(); })
+      .then(function(html) {
+        document.getElementById('cloudflare-schema').innerHTML = html;
+        // Execute schema script tags
+        var scripts = document.getElementById('cloudflare-schema').querySelectorAll('script');
+        scripts.forEach(function(s) {
+          var newScript = document.createElement('script');
+          newScript.type = s.type || 'text/javascript';
+          newScript.textContent = s.textContent;
+          document.head.appendChild(newScript);
+          s.remove();
+        });
+      });
+
+    // Load homepage animations (only on homepage)
+    var animScript = document.createElement('script');
+    animScript.src = cfBase + '/homepage-animations.js';
+    animScript.defer = true;
+    document.head.appendChild(animScript);
+  }
 </script>
