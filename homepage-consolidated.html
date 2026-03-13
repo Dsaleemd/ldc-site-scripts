@@ -92,23 +92,8 @@
 .ldc-hp-hero-team img{width:100%;max-width:600px;height:auto;object-fit:contain;object-position:bottom;filter:drop-shadow(0 8px 32px rgba(0,0,0,.2))}
 @media(max-width:900px){.ldc-hp-hero-split{flex-direction:column;text-align:center;padding-top:clamp(5rem,10vh,8rem);padding-bottom:2rem}.ldc-hp-hero-content{text-align:center;max-width:100%}.ldc-hp-hero-sub{margin-left:auto;margin-right:auto}.ldc-hp-hero-ctas{justify-content:center}.ldc-hp-hero-team{max-width:400px;margin-bottom:-3rem}}
 
-/* Flipping Cards */
-.ldc-hp-flipcards{background:var(--white);position:relative}
-.ldc-hp-flipcards-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1.5rem;justify-items:center}
-.ldc-hp-flipcard{width:160px;height:160px;perspective:800px;cursor:pointer}
-.ldc-hp-flipcard-inner{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.19,1,.22,1);transform-style:preserve-3d}
-.ldc-hp-flipcard:hover .ldc-hp-flipcard-inner{transform:rotateY(180deg)}
-.ldc-hp-flipcard-front,.ldc-hp-flipcard-back{position:absolute;inset:0;border-radius:50%;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
-.ldc-hp-flipcard-front{z-index:2;box-shadow:0 4px 20px rgba(26,60,52,.12);border:3px solid rgba(15,188,176,.2)}
-.ldc-hp-flipcard-front img{width:100%;height:100%;object-fit:cover}
-.ldc-hp-flipcard-back{transform:rotateY(180deg);background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;text-align:center;box-shadow:0 4px 20px rgba(26,60,52,.18);border:3px solid var(--accent)}
-.ldc-hp-flipcard-back h3{font-size:.85rem;color:var(--white);margin-bottom:.3rem;letter-spacing:-0.01em}
-.ldc-hp-flipcard-back p{font-size:.65rem;color:var(--text-on-dark-3);line-height:1.35;margin-bottom:.5rem}
-.ldc-hp-btn-sm{padding:.35rem .9rem;font-size:.65rem;border-radius:var(--radius-pill)}
-@media(max-width:1024px){.ldc-hp-flipcards-grid{grid-template-columns:repeat(3,1fr);gap:1.5rem}.ldc-hp-flipcard{width:150px;height:150px}}
-@media(max-width:600px){.ldc-hp-flipcards-grid{grid-template-columns:repeat(2,1fr);gap:1.25rem}.ldc-hp-flipcard{width:140px;height:140px}}
-.ldc-hp-flipcard{transform:scale(.7);opacity:0;transition:transform .8s cubic-bezier(.19,1,.22,1),opacity .6s ease}
-.ldc-hp-flipcard.card-grown{transform:scale(1);opacity:1}
+/* Image Circle Animation Container */
+.ldc-hp-image-circle{background:var(--off-white,#fafcfb);position:relative;padding:0}
 
 /* Wave */
 .ldc-hp-wave{position:absolute;bottom:-1px;left:0;width:100%;z-index:3;line-height:0}
@@ -335,101 +320,9 @@ body.homepage .page-section:not(.ldc-hp-injected),body.homepage .page-title{disp
     </div>
   </section>
 
-  <!-- ====== FLIPPING CARDS - Decades of Happy Smiles ====== -->
-  <section class="ldc-hp-section ldc-hp-flipcards" aria-label="Decades of happy smiles">
-    <div class="ldc-hp-inner">
-      <div class="ldc-hp-section-header ldc-hp-reveal">
-        <h2 class="ldc-hp-heading">Decades of Happy, Healthy Smiles</h2>
-        <p class="ldc-hp-subheading">Explore our world of dental care — flip a card to discover more</p>
-      </div>
-      <div class="ldc-hp-flipcards-grid ldc-hp-reveal-stagger">
-
-        <!-- Card 1: About Us -->
-        <div class="ldc-hp-flipcard">
-          <div class="ldc-hp-flipcard-inner">
-            <div class="ldc-hp-flipcard-front">
-              <img src="https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/41f4dc09-2ac5-447f-aa62-f2ba64d0a621/Squoosh+DSC01011.jpg" alt="Our Practice" loading="lazy">
-            </div>
-            <div class="ldc-hp-flipcard-back">
-              <h3>About Us</h3>
-              <p>16+ years of exceptional dental care in Islington</p>
-              <a href="/about-us" class="ldc-hp-btn ldc-hp-btn-primary ldc-hp-btn-sm">Discover More</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2: Invisalign -->
-        <div class="ldc-hp-flipcard">
-          <div class="ldc-hp-flipcard-inner">
-            <div class="ldc-hp-flipcard-front">
-              <img src="https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/21cace94-e8c1-4af5-aa27-171c4ceb3586/ChatGPT+Image+Apr+14%2C+2025%2C+10_59_49+AM.jpg" alt="Invisalign treatment" loading="lazy">
-            </div>
-            <div class="ldc-hp-flipcard-back">
-              <h3>Invisalign</h3>
-              <p>Straighten your teeth discreetly with clear aligners</p>
-              <a href="/treatment/invisalign" class="ldc-hp-btn ldc-hp-btn-primary ldc-hp-btn-sm">Learn More</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3: Meet the Team -->
-        <div class="ldc-hp-flipcard">
-          <div class="ldc-hp-flipcard-inner">
-            <div class="ldc-hp-flipcard-front">
-              <img src="https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/965a4832-b792-45db-ae88-868ffbc82c8b/31.png+from+Squoosh.webp" alt="Dr Grei Muskaj" loading="lazy">
-            </div>
-            <div class="ldc-hp-flipcard-back">
-              <h3>Meet Our Team</h3>
-              <p>Experienced, friendly dentists dedicated to your smile</p>
-              <a href="/about-us" class="ldc-hp-btn ldc-hp-btn-primary ldc-hp-btn-sm">Meet the Team</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 4: Veneers -->
-        <div class="ldc-hp-flipcard">
-          <div class="ldc-hp-flipcard-inner">
-            <div class="ldc-hp-flipcard-front">
-              <img src="https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/1721923595490-S0GC96LO7JAFN4OBIC3H/unsplash-image-s5TU52ZjaFA.jpg" alt="Beautiful smile with veneers" loading="lazy">
-            </div>
-            <div class="ldc-hp-flipcard-back">
-              <h3>Porcelain Veneers</h3>
-              <p>Transform your smile with premium porcelain veneers</p>
-              <a href="/porcelain-veneers" class="ldc-hp-btn ldc-hp-btn-primary ldc-hp-btn-sm">View Veneers</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 5: Composite Bonding -->
-        <div class="ldc-hp-flipcard">
-          <div class="ldc-hp-flipcard-inner">
-            <div class="ldc-hp-flipcard-front">
-              <img src="https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/aeaf68ca-84e7-477e-a100-deb13e3eed21/37.png+from+Squoosh.webp" alt="Composite bonding" loading="lazy">
-            </div>
-            <div class="ldc-hp-flipcard-back">
-              <h3>Composite Bonding</h3>
-              <p>Quickly fix chips, gaps, or uneven teeth</p>
-              <a href="/cosmetic-bonding" class="ldc-hp-btn ldc-hp-btn-primary ldc-hp-btn-sm">Explore Bonding</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 6: Teeth Whitening -->
-        <div class="ldc-hp-flipcard">
-          <div class="ldc-hp-flipcard-inner">
-            <div class="ldc-hp-flipcard-front">
-              <img src="https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/eec00740-cc9f-4ebd-bee1-6efdca032614/Untitled+Design+from+Canva+%282%29.jpg" alt="Teeth whitening results" loading="lazy">
-            </div>
-            <div class="ldc-hp-flipcard-back">
-              <h3>Teeth Whitening</h3>
-              <p>Brighten your smile safely and effectively</p>
-              <a href="/treatment/teeth-whitening" class="ldc-hp-btn ldc-hp-btn-primary ldc-hp-btn-sm">Get Whiter Teeth</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
+  <!-- ====== IMAGE CIRCLE ANIMATION — Decades of Happy Smiles ====== -->
+  <section class="ldc-hp-section ldc-hp-image-circle" aria-label="Decades of happy smiles">
+    <div id="ldc-image-circle-container"></div>
   </section>
 
   <!-- ====== TRUST BAR ====== -->
@@ -862,7 +755,7 @@ body.homepage .page-section:not(.ldc-hp-injected),body.homepage .page-title{disp
   }
 
   function initCardGrow(){
-    var cards=document.querySelectorAll('.ldc-hp-service-card,.ldc-hp-step,.ldc-hp-team-card,.ldc-hp-review-card,.ldc-hp-trust-item,.ldc-hp-faq-item,.ldc-hp-flipcard');
+    var cards=document.querySelectorAll('.ldc-hp-service-card,.ldc-hp-step,.ldc-hp-team-card,.ldc-hp-review-card,.ldc-hp-trust-item,.ldc-hp-faq-item');
     if(!cards.length)return;
     var obs=new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
@@ -950,7 +843,20 @@ body.homepage .page-section:not(.ldc-hp-injected),body.homepage .page-title{disp
     });
   }
 
-  function init(){revealPage();initScrollReveal();initBlobAnimations();initCardGrow();initBlobParallax();initCounters();initFAQ();initReviewCarousel();initSmoothScroll()}
+  function initImageCircle(){
+    var container=document.getElementById('ldc-image-circle-container');
+    if(!container)return;
+    if(typeof window.ldcImageCircle!=='undefined'){window.ldcImageCircle.init(container);return;}
+    // Script may still be loading — retry
+    var attempts=0;
+    var check=setInterval(function(){
+      attempts++;
+      if(typeof window.ldcImageCircle!=='undefined'){clearInterval(check);window.ldcImageCircle.init(container);}
+      else if(attempts>50){clearInterval(check);}
+    },100);
+  }
+
+  function init(){revealPage();initScrollReveal();initBlobAnimations();initCardGrow();initBlobParallax();initCounters();initFAQ();initReviewCarousel();initSmoothScroll();initImageCircle()}
 
     init();
   }
@@ -959,3 +865,6 @@ body.homepage .page-section:not(.ldc-hp-injected),body.homepage .page-title{disp
   else injectPage();
 })();
 </script>
+
+<!-- Image Circle Animation Engine -->
+<script src="https://1e0d8781.ldc-site-scripts.pages.dev/image-circle-vanilla.js"></script>
