@@ -278,6 +278,110 @@
 body.homepage .page-section:not(.ldc-hp-injected),body.homepage .page-title{display:none!important}
 </style>
 
+<!-- Image Circle Animation Engine (inlined for single-file injection) -->
+<script>
+(function(){
+"use strict";
+var DEFAULT_IMAGES=[
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/41f4dc09-2ac5-447f-aa62-f2ba64d0a621/Squoosh+DSC01011.jpg",alt:"Our Practice",label:"About Us",desc:"16+ years of exceptional dental care",href:"/about-us"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/21cace94-e8c1-4af5-aa27-171c4ceb3586/ChatGPT+Image+Apr+14%2C+2025%2C+10_59_49+AM.jpg",alt:"Invisalign",label:"Invisalign",desc:"Straighten teeth with clear aligners",href:"/treatment/invisalign"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/965a4832-b792-45db-ae88-868ffbc82c8b/31.png+from+Squoosh.webp",alt:"Dr Grei Muskaj",label:"Meet the Team",desc:"Experienced, friendly dentists",href:"/about-us"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/1721923595490-S0GC96LO7JAFN4OBIC3H/unsplash-image-s5TU52ZjaFA.jpg",alt:"Veneers smile",label:"Porcelain Veneers",desc:"Transform your smile with veneers",href:"/porcelain-veneers"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/aeaf68ca-84e7-477e-a100-deb13e3eed21/37.png+from+Squoosh.webp",alt:"Composite bonding",label:"Composite Bonding",desc:"Fix chips, gaps, or uneven teeth",href:"/cosmetic-bonding"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/eec00740-cc9f-4ebd-bee1-6efdca032614/Untitled+Design+from+Canva+%282%29.jpg",alt:"Teeth whitening",label:"Teeth Whitening",desc:"Brighten your smile safely",href:"/treatment/teeth-whitening"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/41f4dc09-2ac5-447f-aa62-f2ba64d0a621/Squoosh+DSC01011.jpg",alt:"Dental implants",label:"Dental Implants",desc:"Permanent tooth replacement",href:"/treatment/implants"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/21cace94-e8c1-4af5-aa27-171c4ceb3586/ChatGPT+Image+Apr+14%2C+2025%2C+10_59_49+AM.jpg",alt:"Hygiene clean",label:"Hygiene & Polish",desc:"Professional dental cleaning",href:"/hygiene"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/965a4832-b792-45db-ae88-868ffbc82c8b/31.png+from+Squoosh.webp",alt:"Emergency dentist",label:"Emergency Care",desc:"Same-day urgent appointments",href:"/emergency-dentist"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/1721923595490-S0GC96LO7JAFN4OBIC3H/unsplash-image-s5TU52ZjaFA.jpg",alt:"General dentistry",label:"General Dentistry",desc:"Comprehensive dental check-ups",href:"/general-dentistry"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/aeaf68ca-84e7-477e-a100-deb13e3eed21/37.png+from+Squoosh.webp",alt:"Smile makeover",label:"Smile Makeover",desc:"Complete smile transformation",href:"/smile-gallery"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/eec00740-cc9f-4ebd-bee1-6efdca032614/Untitled+Design+from+Canva+%282%29.jpg",alt:"Cosmetic dentistry",label:"Cosmetic Dentistry",desc:"Look and feel your best",href:"/cosmetic-dentist"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/41f4dc09-2ac5-447f-aa62-f2ba64d0a621/Squoosh+DSC01011.jpg",alt:"Root canal",label:"Root Canal",desc:"Pain-free endodontic treatment",href:"/root-canal"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/21cace94-e8c1-4af5-aa27-171c4ceb3586/ChatGPT+Image+Apr+14%2C+2025%2C+10_59_49+AM.jpg",alt:"Crowns and bridges",label:"Crowns & Bridges",desc:"Restore damaged teeth beautifully",href:"/crowns-bridges"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/965a4832-b792-45db-ae88-868ffbc82c8b/31.png+from+Squoosh.webp",alt:"Children dentist",label:"Children's Dentist",desc:"Gentle care for little smiles",href:"/childrens-dentist"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/1721923595490-S0GC96LO7JAFN4OBIC3H/unsplash-image-s5TU52ZjaFA.jpg",alt:"Orthodontics",label:"Orthodontics",desc:"Braces and alignment solutions",href:"/orthodontics"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/aeaf68ca-84e7-477e-a100-deb13e3eed21/37.png+from+Squoosh.webp",alt:"Dental finance",label:"0% Finance",desc:"Spread the cost interest-free",href:"/dental-membersip"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/eec00740-cc9f-4ebd-bee1-6efdca032614/Untitled+Design+from+Canva+%282%29.jpg",alt:"Dental anxiety",label:"Nervous Patients",desc:"Relaxed, judgement-free dentistry",href:"/nervous-patients"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/41f4dc09-2ac5-447f-aa62-f2ba64d0a621/Squoosh+DSC01011.jpg",alt:"Night guards",label:"Night Guards",desc:"Protect your teeth while you sleep",href:"/night-guards"},
+{src:"https://images.squarespace-cdn.com/content/v1/5d7bafb2d4f5e4735f21b5cc/21cace94-e8c1-4af5-aa27-171c4ceb3586/ChatGPT+Image+Apr+14%2C+2025%2C+10_59_49+AM.jpg",alt:"Facial aesthetics",label:"Facial Aesthetics",desc:"Non-surgical rejuvenation",href:"/facial-aesthetics"}
+];
+var IMG_W=60,IMG_H=85,MAX_SCROLL=3000,TOTAL=20;
+function createSpring(s,d){var v=0,vel=0,tgt=0;return{set:function(t){tgt=t},get:function(){return v},tick:function(dt){dt=Math.min(dt,.064);var f=-s*(v-tgt),df=-d*vel;vel+=(f+df)*dt;v+=vel*dt;return Math.abs(v-tgt)>.001||Math.abs(vel)>.01},reset:function(x){v=x;vel=0;tgt=x}}}
+function lerp(a,b,t){return a*(1-t)+b*t}
+function createCardSpring(s,d){return{x:createSpring(s,d),y:createSpring(s,d),rotation:createSpring(s,d),scale:createSpring(s,d),opacity:createSpring(s,d)}}
+function createCardEl(img,idx){
+var card=document.createElement("div");card.style.cssText="position:absolute;width:"+IMG_W+"px;height:"+IMG_H+"px;transform-style:preserve-3d;perspective:1000px;cursor:pointer;will-change:transform,opacity;";
+var inner=document.createElement("div");inner.style.cssText="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.6s cubic-bezier(.19,1,.22,1);";
+var front=document.createElement("div");front.style.cssText="position:absolute;inset:0;overflow:hidden;border-radius:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 4px 20px rgba(26,60,52,0.15);";
+var imgEl=document.createElement("img");imgEl.src=img.src;imgEl.alt=img.alt||"card-"+idx;imgEl.style.cssText="width:100%;height:100%;object-fit:cover;display:block;";imgEl.loading="lazy";
+var ov=document.createElement("div");ov.style.cssText="position:absolute;inset:0;background:rgba(0,0,0,0.1);transition:background .3s ease;";
+front.appendChild(imgEl);front.appendChild(ov);
+var back=document.createElement("div");back.style.cssText="position:absolute;inset:0;overflow:hidden;border-radius:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);background:var(--dark,#1a3c34);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0.5rem;text-align:center;box-shadow:0 4px 20px rgba(26,60,52,0.2);border:2px solid var(--accent,#0fbcb0);";
+var bl=document.createElement("p");bl.style.cssText="font-size:7px;font-weight:700;color:var(--accent,#0fbcb0);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:2px;font-family:var(--font,sans-serif);";bl.textContent=img.label||"View";
+var bd=document.createElement("p");bd.style.cssText="font-size:8px;font-weight:500;color:#fff;line-height:1.3;margin-bottom:4px;font-family:var(--font,sans-serif);";bd.textContent=img.desc||"Details";
+back.appendChild(bl);back.appendChild(bd);
+if(img.href){var lnk=document.createElement("a");lnk.href=img.href;lnk.style.cssText="font-size:7px;color:var(--accent,#0fbcb0);text-decoration:none;font-weight:600;font-family:var(--font,sans-serif);";lnk.textContent="Learn More \u2192";back.appendChild(lnk)}
+inner.appendChild(front);inner.appendChild(back);card.appendChild(inner);
+card.addEventListener("mouseenter",function(){inner.style.transform="rotateY(180deg)";ov.style.background="transparent"});
+card.addEventListener("mouseleave",function(){inner.style.transform="rotateY(0deg)";ov.style.background="rgba(0,0,0,0.1)"});
+return card}
+function createIntroText(ct){
+var w=document.createElement("div");w.style.cssText="position:absolute;z-index:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;top:50%;left:50%;transform:translate(-50%,-50%);";
+var h=document.createElement("h1");h.style.cssText="font-size:clamp(1.5rem,4vw,2.5rem);font-weight:500;letter-spacing:-0.02em;color:var(--text-1,#1a3c34);opacity:0;filter:blur(10px);transition:opacity 1s ease,filter 1s ease,transform 1s ease;transform:translateY(20px);font-family:var(--font,sans-serif);";h.textContent="Decades of Happy, Healthy Smiles";
+var p=document.createElement("p");p.style.cssText="margin-top:1rem;font-size:clamp(0.6rem,1vw,0.75rem);font-weight:700;letter-spacing:0.2em;color:var(--text-3,rgba(26,60,52,0.6));opacity:0;transition:opacity 1s ease 0.2s;text-transform:uppercase;font-family:var(--font,sans-serif);";p.textContent="SCROLL TO EXPLORE";
+w.appendChild(h);w.appendChild(p);ct.appendChild(w);
+return{show:function(){h.style.opacity="1";h.style.filter="blur(0px)";h.style.transform="translateY(0)";p.style.opacity="0.5"},fadeByMorph:function(m){if(m<.5){h.style.opacity=String(Math.max(0,1-m*2));p.style.opacity=String(Math.max(0,.5-m))}else{h.style.opacity="0";h.style.filter="blur(10px)";p.style.opacity="0"}}}}
+function createArcContent(ct){
+var w=document.createElement("div");w.style.cssText="position:absolute;top:10%;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;left:50%;transform:translateX(-50%) translateY(20px);padding:0 1rem;opacity:0;";
+var h2=document.createElement("h2");h2.style.cssText="font-size:clamp(1.5rem,4vw,3rem);font-weight:600;color:var(--text-1,#1a3c34);letter-spacing:-0.025em;margin-bottom:1rem;font-family:var(--font,sans-serif);";h2.textContent="Explore Our Treatments";
+var p=document.createElement("p");p.style.cssText="font-size:clamp(0.8rem,1.2vw,1rem);color:var(--text-3,rgba(26,60,52,0.6));max-width:500px;line-height:1.6;font-family:var(--font,sans-serif);";p.textContent="Discover a world of dental care \u2014 flip a card to learn more about each treatment.";
+w.appendChild(h2);w.appendChild(p);ct.appendChild(w);
+return{showByMorph:function(m){if(m>.8){var o=(m-.8)/.2;w.style.opacity=String(o);w.style.transform="translateX(-50%) translateY("+lerp(20,0,o)+"px)"}else{w.style.opacity="0"}}}}
+function genScatter(n){var a=[];for(var i=0;i<n;i++)a.push({x:(Math.random()-.5)*1500,y:(Math.random()-.5)*1000,rotation:(Math.random()-.5)*180,scale:.6,opacity:0});return a}
+function icInit(containerEl,images){
+images=images||DEFAULT_IMAGES;var total=Math.min(images.length,TOTAL);
+containerEl.style.cssText+=";position:relative;width:100%;height:80vh;min-height:500px;overflow:hidden;background:var(--off-white,#fafcfb);";
+var cw=document.createElement("div");cw.style.cssText="position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;";containerEl.appendChild(cw);
+var introText=createIntroText(containerEl),arcContent=createArcContent(containerEl);
+var cards=[],scatter=genScatter(total);
+for(var i=0;i<total;i++){var el=createCardEl(images[i]||images[i%images.length],i);cw.appendChild(el);var sp=createCardSpring(40,15);sp.x.reset(scatter[i].x);sp.y.reset(scatter[i].y);sp.rotation.reset(scatter[i].rotation);sp.scale.reset(.6);sp.opacity.reset(0);cards.push({el:el,spring:sp})}
+var phase="scatter",cWidth=containerEl.offsetWidth,cHeight=containerEl.offsetHeight,vScroll=0,mX=0,running=true;
+var morphSp=createSpring(40,20),rotSp=createSpring(40,20),parSp=createSpring(30,20);morphSp.reset(0);rotSp.reset(0);parSp.reset(0);
+var ro=new ResizeObserver(function(e){for(var j=0;j<e.length;j++){cWidth=e[j].contentRect.width;cHeight=e[j].contentRect.height}});ro.observe(containerEl);
+function onWheel(e){e.preventDefault();vScroll=Math.min(Math.max(vScroll+e.deltaY,0),MAX_SCROLL)}
+var tsy=0;function onTS(e){tsy=e.touches[0].clientY}function onTM(e){var y=e.touches[0].clientY,dy=tsy-y;tsy=y;vScroll=Math.min(Math.max(vScroll+dy,0),MAX_SCROLL)}
+containerEl.addEventListener("wheel",onWheel,{passive:false});containerEl.addEventListener("touchstart",onTS,{passive:true});containerEl.addEventListener("touchmove",onTM,{passive:true});
+function onMM(e){var r=containerEl.getBoundingClientRect();mX=((e.clientX-r.left)/r.width*2-1)*100}
+containerEl.addEventListener("mousemove",onMM);
+setTimeout(function(){phase="line"},500);setTimeout(function(){phase="circle";introText.show()},2500);
+function compute(){
+var mt=Math.min(Math.max(vScroll/600,0),1);morphSp.set(mt);
+var rt=vScroll>600?Math.min((vScroll-600)/(MAX_SCROLL-600),1)*360:0;rotSp.set(rt);parSp.set(mX);
+var mv=morphSp.get(),rv=rotSp.get(),pv=parSp.get();
+introText.fadeByMorph(mv);arcContent.showByMorph(mv);
+for(var i=0;i<total;i++){var t;
+if(phase==="scatter"){t=scatter[i]}
+else if(phase==="line"){var ls=70,lt=total*ls;t={x:i*ls-lt/2,y:0,rotation:0,scale:1,opacity:1}}
+else{var mob=cWidth<768,md=Math.min(cWidth,cHeight);
+var cr=Math.min(md*.35,350),ca=(i/total)*360,crd=ca*Math.PI/180;
+var cp={x:Math.cos(crd)*cr,y:Math.sin(crd)*cr,rotation:ca+90};
+var br=Math.min(cWidth,cHeight*1.5),ar=br*(mob?1.4:1.1),aay=cHeight*(mob?.35:.25),acy=aay+ar;
+var sa=mob?100:130,sta=-90-sa/2,stp=sa/(total-1);
+var sp2=Math.min(Math.max(rv/360,0),1),mr=sa*.8,brot=-sp2*mr;
+var caa=sta+i*stp+brot,ard=caa*Math.PI/180;
+var ap={x:Math.cos(ard)*ar+pv,y:Math.sin(ard)*ar+acy,rotation:caa+90,scale:mob?1.4:1.8};
+t={x:lerp(cp.x,ap.x,mv),y:lerp(cp.y,ap.y,mv),rotation:lerp(cp.rotation,ap.rotation,mv),scale:lerp(1,ap.scale,mv),opacity:1}}
+cards[i].spring.x.set(t.x);cards[i].spring.y.set(t.y);cards[i].spring.rotation.set(t.rotation);cards[i].spring.scale.set(t.scale);cards[i].spring.opacity.set(t.opacity)}}
+var lt2=0;function loop(ts){if(!running)return;var dt=lt2?(ts-lt2)/1000:.016;lt2=ts;compute();morphSp.tick(dt);rotSp.tick(dt);parSp.tick(dt);
+for(var i=0;i<total;i++){var c=cards[i];c.spring.x.tick(dt);c.spring.y.tick(dt);c.spring.rotation.tick(dt);c.spring.scale.tick(dt);c.spring.opacity.tick(dt);
+c.el.style.transform="translate3d("+c.spring.x.get().toFixed(1)+"px,"+c.spring.y.get().toFixed(1)+"px,0) rotate("+c.spring.rotation.get().toFixed(1)+"deg) scale("+c.spring.scale.get().toFixed(3)+")";
+c.el.style.opacity=Math.max(0,Math.min(1,c.spring.opacity.get())).toFixed(3)}
+requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+return function(){running=false;ro.disconnect();containerEl.removeEventListener("wheel",onWheel);containerEl.removeEventListener("touchstart",onTS);containerEl.removeEventListener("touchmove",onTM);containerEl.removeEventListener("mousemove",onMM)}}
+window.ldcImageCircle={init:icInit,DEFAULT_IMAGES:DEFAULT_IMAGES};
+})();
+</script>
+
 <!-- Page Content + Animations -->
 <script>
 (function(){
@@ -845,15 +949,8 @@ body.homepage .page-section:not(.ldc-hp-injected),body.homepage .page-title{disp
 
   function initImageCircle(){
     var container=document.getElementById('ldc-image-circle-container');
-    if(!container)return;
-    if(typeof window.ldcImageCircle!=='undefined'){window.ldcImageCircle.init(container);return;}
-    // Script may still be loading — retry
-    var attempts=0;
-    var check=setInterval(function(){
-      attempts++;
-      if(typeof window.ldcImageCircle!=='undefined'){clearInterval(check);window.ldcImageCircle.init(container);}
-      else if(attempts>50){clearInterval(check);}
-    },100);
+    if(!container||typeof window.ldcImageCircle==='undefined')return;
+    window.ldcImageCircle.init(container);
   }
 
   function init(){revealPage();initScrollReveal();initBlobAnimations();initCardGrow();initBlobParallax();initCounters();initFAQ();initReviewCarousel();initSmoothScroll();initImageCircle()}
@@ -866,5 +963,3 @@ body.homepage .page-section:not(.ldc-hp-injected),body.homepage .page-title{disp
 })();
 </script>
 
-<!-- Image Circle Animation Engine -->
-<script src="https://1e0d8781.ldc-site-scripts.pages.dev/image-circle-vanilla.js"></script>
