@@ -204,7 +204,7 @@
 
 
 /* ============================================================
-   HERO SECTION
+   HERO SECTION — Split layout with gradient bg
    ============================================================ */
 .ldc-hp-hero {
   position: relative;
@@ -216,54 +216,103 @@
   overflow: hidden;
   padding: 0;
 }
-.ldc-hp-hero-bg {
+.ldc-hp-hero-bg-gradient {
   position: absolute;
   inset: 0;
   z-index: 0;
+  background: linear-gradient(135deg, #1a4a3a 0%, #1a3c34 25%, #1e4d42 50%, #1a3c34 75%, #163830 100%);
 }
-.ldc-hp-hero-bg img {
+.ldc-hp-hero-split {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-width);
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.ldc-hp-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(15, 40, 32, 0.6) 0%,
-    rgba(15, 40, 32, 0.45) 40%,
-    rgba(15, 40, 32, 0.7) 100%
-  );
-  z-index: 1;
+  margin: 0 auto;
+  padding: clamp(6rem, 12vh, 10rem) var(--section-pad-x) clamp(4rem, 8vh, 6rem);
+  gap: 2rem;
 }
 .ldc-hp-hero-content {
   position: relative;
   z-index: 2;
-  text-align: center;
-  padding: 2rem var(--section-pad-x);
-  max-width: 800px;
+  text-align: left;
+  max-width: 560px;
+  flex-shrink: 0;
+}
+.ldc-hp-hero-google-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.ldc-hp-hero-google-badge .stars {
+  color: #fbbf24;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
 }
 .ldc-hp-hero h1 {
   font-size: clamp(2.75rem, 5.5vw, 4.75rem);
   color: var(--white);
-  margin-bottom: 1rem;
+  opacity: 0.92;
+  margin-bottom: 1.25rem;
   letter-spacing: -0.035em;
   line-height: 1.05;
 }
-.ldc-hp-hero h2 {
-  font-size: clamp(1rem, 2vw, 1.3rem);
+.ldc-hp-hero-sub {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
   color: var(--text-on-dark-3);
   font-weight: 400;
-  margin-bottom: 2rem;
-  line-height: 1.55;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  max-width: 480px;
 }
 .ldc-hp-hero-ctas {
   display: flex;
   gap: 1rem;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
+}
+.ldc-hp-btn-hero {
+  font-size: 1.1rem;
+  padding: 1.1rem 3rem;
+  border-radius: var(--radius-pill);
+}
+.ldc-hp-hero-team {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 0;
+  max-width: 600px;
+  align-self: flex-end;
+  margin-bottom: -6rem;
+}
+.ldc-hp-hero-team img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom;
+  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.2));
+}
+@media (max-width: 900px) {
+  .ldc-hp-hero-split {
+    flex-direction: column;
+    text-align: center;
+    padding-top: clamp(5rem, 10vh, 8rem);
+    padding-bottom: 2rem;
+  }
+  .ldc-hp-hero-content {
+    text-align: center;
+    max-width: 100%;
+  }
+  .ldc-hp-hero-sub { margin-left: auto; margin-right: auto; }
+  .ldc-hp-hero-ctas { justify-content: center; }
+  .ldc-hp-hero-team { max-width: 400px; margin-bottom: -3rem; }
 }
 
 /* --- Review Pill (glassmorphic) --- */
@@ -969,6 +1018,103 @@
 }
 
 /* ============================================================
+   FLIPPING CIRCULAR CARDS — Image circles with 3D flip
+   ============================================================ */
+.ldc-hp-flipcards {
+  background: var(--white);
+  position: relative;
+}
+.ldc-hp-flipcards-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.5rem;
+  justify-items: center;
+}
+.ldc-hp-flipcard {
+  width: 160px;
+  height: 160px;
+  perspective: 800px;
+  cursor: pointer;
+}
+.ldc-hp-flipcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(.19, 1, .22, 1);
+  transform-style: preserve-3d;
+}
+.ldc-hp-flipcard:hover .ldc-hp-flipcard-inner {
+  transform: rotateY(180deg);
+}
+.ldc-hp-flipcard-front,
+.ldc-hp-flipcard-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+.ldc-hp-flipcard-front {
+  z-index: 2;
+  box-shadow: 0 4px 20px rgba(26, 60, 52, 0.12);
+  border: 3px solid rgba(15, 188, 176, 0.2);
+}
+.ldc-hp-flipcard-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ldc-hp-flipcard-back {
+  transform: rotateY(180deg);
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(26, 60, 52, 0.18);
+  border: 3px solid var(--accent);
+}
+.ldc-hp-flipcard-back h3 {
+  font-size: 0.85rem;
+  color: var(--white);
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.01em;
+}
+.ldc-hp-flipcard-back p {
+  font-size: 0.65rem;
+  color: var(--text-on-dark-3);
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+}
+.ldc-hp-btn-sm {
+  padding: 0.35rem 0.9rem;
+  font-size: 0.65rem;
+  border-radius: var(--radius-pill);
+}
+@media (max-width: 1024px) {
+  .ldc-hp-flipcards-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .ldc-hp-flipcard { width: 150px; height: 150px; }
+}
+@media (max-width: 600px) {
+  .ldc-hp-flipcards-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .ldc-hp-flipcard { width: 140px; height: 140px; }
+}
+
+/* Flipcard grow animation */
+.ldc-hp-flipcard {
+  transform: scale(0.7);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(.19, 1, .22, 1), opacity 0.6s ease;
+}
+.ldc-hp-flipcard.card-grown {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ============================================================
    FLECTO-STYLE GROW BLOCKS — Cards that expand on scroll
    ============================================================ */
 .ldc-hp-service-card {
@@ -1119,6 +1265,17 @@
   opacity: 0;
   transform: translateY(30px);
   animation: ldc-hero-entrance 1.2s var(--ease) 0.2s forwards;
+}
+.ldc-hp-hero-team {
+  opacity: 0;
+  transform: translateX(40px);
+  animation: ldc-hero-team-entrance 1.4s var(--ease) 0.5s forwards;
+}
+@keyframes ldc-hero-team-entrance {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 @keyframes ldc-hero-entrance {
   to {

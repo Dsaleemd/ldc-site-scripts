@@ -83,7 +83,7 @@
   // --- Flecto-style Card Grow on Scroll ---
   function initCardGrow() {
     var cards = document.querySelectorAll(
-      '.ldc-hp-service-card, .ldc-hp-step, .ldc-hp-team-card, .ldc-hp-review-card, .ldc-hp-trust-item, .ldc-hp-faq-item'
+      '.ldc-hp-service-card, .ldc-hp-step, .ldc-hp-team-card, .ldc-hp-review-card, .ldc-hp-trust-item, .ldc-hp-faq-item, .ldc-hp-flipcard'
     );
     if (!cards.length) return;
 
